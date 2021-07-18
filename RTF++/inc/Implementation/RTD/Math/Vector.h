@@ -1,12 +1,12 @@
 #include <utility>
-#include <Implementation/RTD/Strings/SharedString.h>
+#include <string>
 
 //
 // Created by kiper220 on 14.06.2021.
 //
 
-#ifndef REDTEXTAPPLICATION_MATH_VECTOR_H
-#define REDTEXTAPPLICATION_MATH_VECTOR_H
+#ifndef REDTEXTAPPLICATION_VECTOR_H
+#define REDTEXTAPPLICATION_VECTOR_H
 
 
 namespace RTF{
@@ -171,28 +171,28 @@ namespace RTF{
             }
 
 
-            T &SetFirstVector(const T &x) {
+            T &SetFirstVector(T &x) {
                 this->x = x;
                 return this->x;
             }
 
-            T &SetSecondVector(const T &y) {
+            T &SetSecondVector(T &y) {
                 this->y = y;
                 return this->y;
             }
 
-            T &SetThirdVector(const T &z) {
+            T &SetThirdVector(T &z) {
                 this->z = z;
                 return this->z;
             }
 
-            T &SetFourthVector(const T &s) {
+            T &SetFourthVector(T &s) {
                 this->s = s;
                 return this->s;
             }
 
 
-            Vector4 &operator()(const T &x, const T &y, const T &z, const T &s) {
+            Vector4 &operator()(T &x, T &y, T &z, T &s) {
                 this->x = x;
                 this->y = y;
                 this->z = z;
@@ -253,22 +253,22 @@ namespace RTF{
         };
 
 
-        class SVector2 : public Vector2<Strings::SharedString> {
+        class SVector2 : public Vector2<std::string> {
         public:
             SVector2();
-            SVector2(Strings::SharedString x, Strings::SharedString y);
+            SVector2(std::string x, std::string y);
         };
 
-        class SVector3 : public Vector3<Strings::SharedString>{
+        class SVector3 : public Vector3<std::string>{
         public:
             SVector3();
-            SVector3(Strings::SharedString x, Strings::SharedString y, Strings::SharedString z);
+            SVector3(std::string x, std::string y, std::string z);
         };
 
-        class SVector4 : public Vector4<Strings::SharedString>{
+        class SVector4 : public Vector4<std::string>{
         public:
             SVector4();
-            SVector4(Strings::SharedString x, Strings::SharedString y, Strings::SharedString z, Strings::SharedString s);
+            SVector4(std::string x, std::string y, std::string z, std::string s);
         };
 
 
@@ -541,4 +541,4 @@ namespace RTF{
     }
 }
 
-#endif //REDTEXTAPPLICATION_MATH_VECTOR_H
+#endif //REDTEXTAPPLICATION_VECTOR_H

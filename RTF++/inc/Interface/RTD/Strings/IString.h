@@ -6,8 +6,8 @@
 #define REDTEXTAPPLICATION_ISTRING_H
 
 namespace RTF{
-    namespace Strings {
-        class SharedString; //Only UTF-8
+    namespace Types {
+        class String; //Only UTF-8
     }
 }
 

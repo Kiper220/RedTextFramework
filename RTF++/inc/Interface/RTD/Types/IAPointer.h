@@ -2,14 +2,14 @@
 // Created by kiper220 on 11.07.2021.
 //
 
-#ifndef REDTEXTAPPLICATION_IAPOINTER_H
-#define REDTEXTAPPLICATION_IAPOINTER_H
+#ifndef REDTEXTAPPLICATION_APOINTER_H
+#define REDTEXTAPPLICATION_APOINTER_H
 
 namespace RTF {
     namespace Types{
         template<typename T>
-        class ASharedPointer;
+        class APointer;
     }
 }
 
-#endif //REDTEXTAPPLICATION_IAPOINTER_H
+#endif //REDTEXTAPPLICATION_APOINTER_H

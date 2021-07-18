@@ -1,96 +1,19 @@
 #include <iostream>
-#include <sys/resource.h>
-#include <list>
-#include <ctime>
-#include <Implementation/RTD/Strings/SharedString.h>
-#include <Implementation/RTD/Containers/SharedList.h>
+#include <RedTextFramework>
+#include <Implementation/RTD/Strings/String.h>
 
-using namespace RTF;
 
 int main() {
-    __mode_t test;
-    clock_t t0;
-    double time1, time2;
-    struct rusage usage{};
-    {
-        t0 = clock();
-        Container::SharedList<Strings::SharedString>::ListType list;
-        for (uint64_t i = 0; i < 80000; i++) {
-            list.PushBack("String1\n");
-            list.PushBack("String2\n");
-            list.PushBack("String3\n");
-            list.PushBack("String4\n");
-            list.PushBack("String5\n");
-            list.PushBack("String6\n");
-            list.PushBack("String7\n");
-            list.PushBack("String8\n");
-            list.PushBack("String9\n");
-            list.PushBack("String10\n");
-            list.PushBack("String11\n");
-            list.PushBack("String12\n");
-            list.PushBack("String13\n");
-            list.PushBack("String14\n");
-            list.PushBack("String15\n");
-            list.PushBack("String16\n");
-            list.PushBack("String17\n");
-            list.PushBack("String18\n");
-            list.PushBack("String19\n");
-            list.PushBack("String20\n");
-            list.PushBack("String21\n");
-            list.PushBack("String22\n");
-            list.PushBack("String23\n");
-            list.PushBack("String24\n");
-            list.PushBack("String25\n");
-            list.PushBack("String26\n");
-            list.PushBack("String27\n");
-            list.PushBack("String28\n");
-            list.PushBack("String29\n");
-            list.PushBack("String30\n");
-        }
-        getrusage(RUSAGE_SELF, &usage);
-        std::cout << "Container::SharedList() " << 800000 * 30 << ": " << (time1 = (double) (clock() - t0) / CLOCKS_PER_SEC) << '\n'
-                  << "Usage: " << usage.ru_nswap << '\n' << '\n';
-    }
-    {
-        t0 = clock();
-        std::list<std::string> list;
-        for (uint64_t i = 0; i < 80000; i++) {
-            list.push_back("String1\n");
-            list.push_back("String2\n");
-            list.push_back("String3\n");
-            list.push_back("String4\n");
-            list.push_back("String5\n");
-            list.push_back("String6\n");
-            list.push_back("String7\n");
-            list.push_back("String8\n");
-            list.push_back("String9\n");
-            list.push_back("String10\n");
-            list.push_back("String11\n");
-            list.push_back("String12\n");
-            list.push_back("String13\n");
-            list.push_back("String14\n");
-            list.push_back("String15\n");
-            list.push_back("String16\n");
-            list.push_back("String17\n");
-            list.push_back("String18\n");
-            list.push_back("String19\n");
-            list.push_back("String20\n");
-            list.push_back("String21\n");
-            list.push_back("String22\n");
-            list.push_back("String23\n");
-            list.push_back("String24\n");
-            list.push_back("String25\n");
-            list.push_back("String26\n");
-            list.push_back("String27\n");
-            list.push_back("String28\n");
-            list.push_back("String29\n");
-            list.push_back("String30\n");
-        }
-        getrusage(RUSAGE_SELF, &usage);
-        std::cout << "std::list() " << 800000 * 30 << ": " << (time2 = (double) (clock() - t0) / CLOCKS_PER_SEC) << '\n'
-                  << "Usage: " << usage.ru_nswap << '\n';
-    }
-    std::cout << "std::list and std::string win Container::SharedList and Strings::SharedString with: " << time1 / time2; // Middle - 5.5;
-
+    RTF::Types::String string =
+            "Mnogi ljudi misle da je Ovog puta naš pseudo-latinski skupa reči uzeo sa stropa, ali to \n"
+            "nije sasvim tačno. Njegovi korijeni se vraćaju na fragment klasičnog latinskog iz 45. reklame\n"
+            ", to je, prije više od dva milenija. Richard McClintock, latino profesor na Hemden-Sydney Koledž, \n"
+            "Virginia, uzeo jedan od najčudnijih riječi u Ovom Polju, \"consectetur\", i počeo je u potrazi za \n"
+            "to u klasični latinski književnost. Kao rezultat toga, on našli su nepobitni primarni izvor na \n"
+            "Ovom Polju u dijelove 1.10.32 i 1.10.33 knjige \"de Finibus Bonorum i Malorum \"(\"Na granice dobra i zla.\"), \n"
+            "koju je napisao Ciceron u 45 OGLAS. Te rasprave o teoriji etike su bile veoma popularne u renesansi. \n"
+            "Prva Lorem Ipsum, \" Lorem ipsum dolor sit amet..\", dolazi iz jedne od linija u odjeljku 1.10.32\n";
+    string.ToLower();
+    std::cout << string;
     return 0;
 }
