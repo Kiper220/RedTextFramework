@@ -13,216 +13,228 @@ namespace RTF{
         class Vector{
         public:
             Vector(){
-                this->data = new T[this->step];
-                this->allocated = this->step;
+                this->data = new T[this->stepOfAllocate];
+                this->allocatedMemory = this->stepOfAllocate;
             }
 
             Vector(const Vector& vector){
-                if(!vector.Empty() && !vector.alone){
+                if(!vector.Empty() && !vector.isAlone){
                     this->data = vector.data;
-                    this->length = vector.length;
-                    this->allocated = vector.allocated;
-                    this->alone = false;
+                    this->lengthOfVector = vector.lengthOfVector;
+                    this->allocatedMemory = vector.allocatedMemory;
+                    this->isAlone = false;
                     return;
                 }
                 if(vector.Empty()){
-                    this->data = new T[this->step];
-                    this->allocated = this->step;
-                    this->alone = false;
+                    this->data = new T[this->stepOfAllocate];
+                    this->allocatedMemory = this->stepOfAllocate;
+                    this->isAlone = false;
                     return;
                 }
-                this->data = new T[vector.length + this->step];
-                this->allocated = (vector.length + 1) - ((vector.length + 1) % this->step) + this->step;
-                this->length = vector.length;
-                this->alone = false;
+
+                this->data = new T[vector.lengthOfVector + this->stepOfAllocate];
+                this->allocatedMemory = (vector.lengthOfVector + 1) - ((vector.lengthOfVector + 1) % this->stepOfAllocate) + this->stepOfAllocate;
+                this->lengthOfVector = vector.lengthOfVector;
+                this->isAlone = false;
             }
             Vector(Vector&& vector) noexcept {
                 this->data = vector.data;
-                this->length = vector.length;
-                this->allocated = vector.allocated;
-                this->step = vector.step;
-                this->alone = vector.alone;
+                this->lengthOfVector = vector.lengthOfVector;
+                this->allocatedMemory = vector.allocatedMemory;
+                this->stepOfAllocate = vector.stepOfAllocate;
+                this->isAlone = vector.isAlone;
 
                 vector.data.DestructThis();
-                vector.length = 0;
-                vector.allocated = 0;
-                vector.step = 25;
-                vector.alone = false;
+                vector.lengthOfVector = 0;
+                vector.allocatedMemory = 0;
+                vector.stepOfAllocate = 25;
+                vector.isAlone = false;
             }
 
             Vector& operator=(const Vector& vector){
-                if(!vector.Empty() && !vector.alone){
-                    this->data = vector.data;
-                    this->length = vector.length;
-                    this->allocated = vector.allocated;
-                    this->alone = false;
-                    return *this;
+                if(&vector != this) {
+                    if (!vector.Empty() && !vector.isAlone) {
+                        this->data = vector.data;
+                        this->lengthOfVector = vector.lengthOfVector;
+                        this->allocatedMemory = vector.allocatedMemory;
+                        this->isAlone = false;
+                        return *this;
+                    }
+                    if (vector.Empty()) {
+                        this->data = new T[this->stepOfAllocate];
+                        this->allocatedMemory = this->stepOfAllocate;
+                        this->isAlone = false;
+                        return *this;
+                    }
+                    this->data = new T[vector.lengthOfVector + this->stepOfAllocate];
+                    this->allocatedMemory =
+                            (vector.lengthOfVector + 1) - ((vector.lengthOfVector + 1) % this->stepOfAllocate) +
+                            this->stepOfAllocate;
+                    this->lengthOfVector = vector.lengthOfVector;
+                    this->isAlone = false;
                 }
-                if(vector.Empty()){
-                    this->data = new T[this->step];
-                    this->allocated = this->step;
-                    this->alone = false;
-                    return *this;
-                }
-                this->data = new T[vector.length + this->step];
-                this->allocated = (vector.length + 1) - ((vector.length + 1) % this->step) + this->step;
-                this->length = vector.length;
-                this->alone = false;
                 return *this;
             }
             Vector& operator=(Vector&& vector) noexcept {
-                this->data = vector.data;
-                this->length = vector.length;
-                this->allocated = vector.allocated;
-                this->step = vector.step;
-                this->alone = vector.alone;
+                if(&vector != this) {
+                    this->data = vector.data;
+                    this->lengthOfVector = vector.lengthOfVector;
+                    this->allocatedMemory = vector.allocatedMemory;
+                    this->stepOfAllocate = vector.stepOfAllocate;
+                    this->isAlone = vector.isAlone;
 
-                vector.data.DestructThis();
-                vector.length = 0;
-                vector.allocated = 0;
-                vector.step = 25;
-                vector.alone = false;
+                    vector.data.DestructThis();
+                    vector.lengthOfVector = 0;
+                    vector.allocatedMemory = 0;
+                    vector.stepOfAllocate = 25;
+                    vector.isAlone = false;
+                }
 
                 return *this;
             }
 
             Vector& operator()(const Vector& vector){
-                if(!vector.Empty() && !vector.alone){
-                    this->data = vector.data;
-                    this->length = vector.length;
-                    this->allocated = vector.allocated;
-                    this->alone = false;
-                    return *this;
+                if(&vector != this) {
+                    if (!vector.Empty() && !vector.isAlone) {
+                        this->data = vector.data;
+                        this->lengthOfVector = vector.lengthOfVector;
+                        this->allocatedMemory = vector.allocatedMemory;
+                        this->isAlone = false;
+                        return *this;
+                    }
+                    if (vector.Empty()) {
+                        this->data = new T[this->stepOfAllocate];
+                        this->allocatedMemory = this->stepOfAllocate;
+                        this->isAlone = false;
+                        return *this;
+                    }
+                    this->data = new T[vector.lengthOfVector + this->stepOfAllocate];
+                    this->allocatedMemory = vector.lengthOfVector + this->stepOfAllocate;
+                    this->lengthOfVector = vector.lengthOfVector;
+                    this->isAlone = false;
                 }
-                if(vector.Empty()){
-                    this->data = new T[this->step];
-                    this->allocated = this->step;
-                    this->alone = false;
-                    return *this;
-                }
-                this->data = new T[vector.length + this->step];
-                this->allocated = vector.length + this->step;
-                this->length = vector.length;
-                this->alone = false;
                 return *this;
             }
             Vector& operator()(Vector&& vector){
-                this->data = vector.data;
-                this->length = vector.length;
-                this->allocated = vector.allocated;
-                this->step = vector.step;
-                this->alone = vector.alone;
+                if(&vector != this) {
+                    this->data = vector.data;
+                    this->lengthOfVector = vector.lengthOfVector;
+                    this->allocatedMemory = vector.allocatedMemory;
+                    this->stepOfAllocate = vector.stepOfAllocate;
+                    this->isAlone = vector.isAlone;
 
-                vector.data.DestructThis();
-                vector.length = 0;
-                vector.allocated = 0;
-                vector.step = 25;
-                vector.alone = false;
+                    vector.data.DestructThis();
+                    vector.lengthOfVector = 0;
+                    vector.allocatedMemory = 0;
+                    vector.stepOfAllocate = 25;
+                    vector.isAlone = false;
+                }
                 return *this;
             }
             Vector& operator()(T* data, uint64_t length){
                 this->data = data;
-                this->length = length;
-                this->allocated = length;
-                this->alone = false;
+                this->lengthOfVector = length;
+                this->allocatedMemory = length;
+                this->isAlone = false;
                 return *this;
             }
             Vector& operator()(const T* data, uint64_t length){
                 this->data = data;
-                this->length = length;
-                this->allocated = length;
-                this->alone = false;
+                this->lengthOfVector = length;
+                this->allocatedMemory = length;
+                this->isAlone = false;
                 return *this;
             }
             bool Empty() const{
-                return this->length == 0;
+                return this->lengthOfVector == 0;
             }
             uint64_t Size() const{
-                return this->length;
+                return this->lengthOfVector;
             }
 
-            void PushBack(T& data){
-                this->operator[](this->length) = data;
+            void PushBack(const T& pushData){
+                this->operator[](this->lengthOfVector) = pushData;
             }
-            void PushBack(T data){
-                this->operator[](this->length) = data;
+            void PushBack(T pushData){
+                this->operator[](this->lengthOfVector) = pushData;
             }
             void SetSize(uint64_t newSize){
-                APointer<T> data = new T[(newSize + 1) - ((newSize + 1) % this->step) + this->step];
-                uint64_t min = this->length < newSize? this->length : newSize;
+                APointer<T> temporaryVariable(new T[(newSize + 1) - ((newSize + 1) % this->stepOfAllocate) + this->stepOfAllocate]);
+                uint64_t min = this->lengthOfVector < newSize ? this->lengthOfVector : newSize;
 
-                for(uint64_t i; i < min; i++)
-                    data[i] = this->data[i];
+                for(uint64_t i = 0; i < min; i++)
+                    temporaryVariable[i] = this->data[i];
 
-                this->allocated = (newSize + 1) - ((newSize + 1) % this->step) + this->step;
-                this->length = newSize;
+                this->allocatedMemory = (newSize + 1) - ((newSize + 1) % this->stepOfAllocate) + this->stepOfAllocate;
+                this->lengthOfVector = newSize;
 
-                this->data = data;
+                this->data = temporaryVariable;
             }
             void UnConstant(){
                 if(!this->data.IsConst())
                     return;
-                APointer<T> tmp = new T[this->length - (this->length % this->step) + this->step];
-                for(uint64_t j = 0; j < this->length; j++)
+
+                APointer<T> tmp(new T[this->lengthOfVector - (this->lengthOfVector % this->stepOfAllocate) + this->stepOfAllocate]);
+
+                for(uint64_t j = 0; j < this->lengthOfVector; j++)
                     tmp[j] = this->data[j];
 
                 this->data = tmp;
-                this->allocated = this->length - (this->length % this->step) + this->step;
+                this->allocatedMemory = this->lengthOfVector - (this->lengthOfVector % this->stepOfAllocate) + this->stepOfAllocate;
             }
             void Erase(uint64_t start, uint64_t end){
-                if(start == 0 && end == this->length){
-                    this->data = new T[this->step];
-                    this->allocated = this->step;
-                    this->length = 0;
+                if(start == 0 && end == this->lengthOfVector){
+                    this->data = new T[this->stepOfAllocate];
+                    this->allocatedMemory = this->stepOfAllocate;
+                    this->lengthOfVector = 0;
                     return;
                 }
                 if(start == end){
                     return;
                 }
                 if(start > end){
-                    int tmp = start;
+                    uint64_t tmp = start;
                     start = end;
                     end = tmp;
                 }
-                int newSize = this->length - (end - start);
-                int newAllocation = (newSize + 1) - ((newSize + 1) % this->step) + this->step;
-                APointer<T> data = new T[newAllocation];
+                int newSize = this->lengthOfVector - (end - start);
+                int newAllocation = (newSize + 1) - ((newSize + 1) % this->stepOfAllocate) + this->stepOfAllocate;
+                APointer<T> temporaryVariable = new T[newAllocation];
 
                 uint64_t i = 0;
                 for(; i < start; i++){
-                    data[i] = this->data[i];
+                    temporaryVariable[i] = this->data[i];
                 }
                 for(; i < newSize; i++){
-                    data[i] = this->data[i + (end - start)];
+                    temporaryVariable[i] = this->data[i + (end - start)];
                 }
 
-                this->data = data;
-                this->length = newSize;
-                this->allocated = newAllocation;
+                this->data = temporaryVariable;
+                this->lengthOfVector = newSize;
+                this->allocatedMemory = newAllocation;
             }
 
             T& operator[](uint64_t i){
                 i++;
-                if(this->data.IsConst() || this->allocated < i){
-                    uint64_t size = 0;
+                if(this->data.IsConst() || this->allocatedMemory < i){
+                    uint64_t size;
                     {
                         uint64_t tmp1, tmp2;
-                        tmp1 = i - (i % this->step) + this->step;
-                        tmp2 = this->allocated;
+                        tmp1 = i - (i % this->stepOfAllocate) + this->stepOfAllocate;
+                        tmp2 = this->allocatedMemory;
                         size = tmp1 > tmp2? tmp1 : tmp2;
                     }
 
-                    APointer<T> tmp = new T[size];
-                    for(uint64_t j = 0; j < this->length; j++)
+                    APointer<T> tmp(new T[size]);
+
+                    for(uint64_t j = 0; j < this->lengthOfVector; j++)
                         tmp[j] = this->data[j];
 
                     this->data = tmp;
-                    this->allocated = size;
+                    this->allocatedMemory = size;
                 }
-                {
-                    if(this->length < i)
-                        this->length = i;
-                };
+                if(this->lengthOfVector < i)
+                    this->lengthOfVector = i;
                 return this->data[i - 1];
             }
 
@@ -237,10 +249,10 @@ namespace RTF{
             ~Vector() = default;
         private:
             APointer<T> data;
-            uint64_t length = 0;
-            uint64_t allocated = 0;
-            uint16_t step = 25;
-            bool alone = false;
+            uint64_t lengthOfVector = 0;
+            uint64_t allocatedMemory = 0;
+            uint16_t stepOfAllocate = 25;
+            bool isAlone = false;
         };
     }
 }

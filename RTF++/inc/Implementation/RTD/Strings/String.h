@@ -13,7 +13,7 @@ namespace RTF {
             String();
             String(const String& string);
             String(String&& string);
-            String(const char* str);
+            explicit String(const char* str);
 
             String& operator=(const String& string);
             String& operator=(String&& string);
@@ -28,6 +28,7 @@ namespace RTF {
 
             String& operator+=(const String& string);
             String& operator+=(const char* str);
+
             operator const char*();
 
             String& ToUpper();
@@ -36,6 +37,7 @@ namespace RTF {
             uint64_t Size() const;
 
             ~String();
+
         private:
             Vector<char> string;
         };

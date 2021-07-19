@@ -171,28 +171,28 @@ namespace RTF{
             }
 
 
-            T &SetFirstVector(T &x) {
+            T &SetFirstVector(const T &x) {
                 this->x = x;
                 return this->x;
             }
 
-            T &SetSecondVector(T &y) {
+            T &SetSecondVector(const T &y) {
                 this->y = y;
                 return this->y;
             }
 
-            T &SetThirdVector(T &z) {
+            T &SetThirdVector(const T &z) {
                 this->z = z;
                 return this->z;
             }
 
-            T &SetFourthVector(T &s) {
+            T &SetFourthVector(const T &s) {
                 this->s = s;
                 return this->s;
             }
 
 
-            Vector4 &operator()(T &x, T &y, T &z, T &s) {
+            Vector4 &operator()(const T &x, const T &y, const T &z, const T &s) {
                 this->x = x;
                 this->y = y;
                 this->z = z;

@@ -3,7 +3,6 @@
 //
 
 #include <Implementation/RTD/Strings/String.h>
-#include "string.h"
 
 namespace RTF {
     namespace Types {
@@ -25,7 +24,7 @@ namespace RTF {
         }
 
         String::String(const char *str) {
-            this->string(str, strlen(str));
+            this->string(str, StringLength(str));
         }
 
         String &String::operator=(const String &string) {
@@ -39,7 +38,7 @@ namespace RTF {
         }
 
         String &String::operator=(const char *str) {
-            this->string(str, strlen(str));
+            this->string(str, StringLength(str));
             return *this;
         }
 
@@ -54,7 +53,7 @@ namespace RTF {
         }
 
         String &String::operator()(const char *str) {
-            this->string(str, strlen(str));
+            this->string(str, StringLength(str));
             return *this;
         }
 
@@ -76,7 +75,7 @@ namespace RTF {
 
         String String::operator+(const char *string1) {
             String str;
-            uint64_t size = strlen(string1);
+            uint64_t size = StringLength(string1);
 
             str.string.SetSize(this->string.Size() + size);
             uint64_t i = 0;
@@ -127,7 +126,7 @@ namespace RTF {
         static uint64_t StringLength(const char* str){
             int i = 0;
             while(str[i++]);
-            return 0;
+            return i;
         }
 
         static unsigned char *StringToLowerExt(unsigned char *pString) {

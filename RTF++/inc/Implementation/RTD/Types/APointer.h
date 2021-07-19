@@ -24,13 +24,13 @@ namespace RTF {
                 this->pointer = aPointer.pointer;
                 this->pointer->counter++;
             }
-            APointer(T* memory){
+            explicit APointer(T* memory){
                 this->pointer = new pointer_t;
                 this->pointer->data = memory;
                 this->pointer->counter = 1;
                 this->pointer->is_Const = false;
             }
-            APointer(const T* memory){
+            explicit APointer(const T* memory){
                 this->pointer = new pointer_t;
                 this->pointer->data = (char*)memory;
                 this->pointer->counter = 1;
@@ -138,8 +138,8 @@ namespace RTF {
             }
 
         private:
-            explicit APointer(pointer_t pointer1){
-                this->pointer = pointer;
+            explicit APointer(const pointer_t &pointer1){
+                this->pointer = pointer1;
                 this->pointer->counter++;
             }
 
