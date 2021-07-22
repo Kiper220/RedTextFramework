@@ -7,7 +7,7 @@
 #include <Implementation/RTD/Types/Vector.h>
 
 namespace RTF {
-    namespace Types {
+    namespace Strings {
         class String{
         public:
             String();
@@ -29,6 +29,9 @@ namespace RTF {
             String& operator+=(const String& string);
             String& operator+=(const char* str);
 
+            bool operator==(const String& string);
+            bool operator==(const char* str);
+
             operator const char*();
 
             String& ToUpper();
@@ -39,7 +42,7 @@ namespace RTF {
             ~String();
 
         private:
-            Vector<char> string;
+            Types::Vector<char> string;
         };
     }
 }

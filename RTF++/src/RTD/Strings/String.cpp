@@ -5,7 +5,7 @@
 #include <Implementation/RTD/Strings/String.h>
 
 namespace RTF {
-    namespace Types {
+    namespace Strings {
 
         static unsigned char *StringToLowerExt(unsigned char *pString);
 
@@ -20,7 +20,7 @@ namespace RTF {
         }
 
         String::String(String &&string) {
-            this->string = (Vector<char>&&)string.string;
+            this->string = (Types::Vector<char>&&)string.string;
         }
 
         String::String(const char *str) {
@@ -33,7 +33,7 @@ namespace RTF {
         }
 
         String &String::operator=(String &&string) {
-            this->string = (Vector<char>&&)string.string;
+            this->string = (Types::Vector<char>&&)string.string;
             return *this;
         }
 
@@ -48,7 +48,7 @@ namespace RTF {
         }
 
         String &String::operator()(String &&string) {
-            this->string = (Vector<char>&&)string.string;
+            this->string = (Types::Vector<char>&&)string.string;
             return *this;
         }
 
@@ -99,6 +99,26 @@ namespace RTF {
         String &String::operator+=(const char *str) {
             *this = *this + str;
             return *this;
+        }
+
+
+        bool String::operator==(const String& string){
+            if(this->string.Size() != string.Size())
+                return false;
+            for(uint64_t i = 0; i < this->string.Size(); i++)
+                if((*this->string)[i] != (*((Types::Vector<char>&)string.string))[i])
+                    return false;
+
+            return true;
+        }
+        bool String::operator==(const char* str){
+            if(this->string.Size() != StringLength(str))
+                return false;
+            for(uint64_t i = 0; i < this->string.Size(); i++)
+                if((*this->string)[i] != str[i])
+                    return false;
+
+            return true;
         }
 
         String::operator const char*(){

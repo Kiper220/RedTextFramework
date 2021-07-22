@@ -17,16 +17,16 @@ namespace RTF {
         BVector4::BVector4(bool x, bool y, bool z, bool s) : Vector4<bool>(x, y, z, s) {};
 
 
-        SVector2::SVector2() : Vector2<std::string>("", "") {};
-        SVector2::SVector2(std::string x, std::string y): Vector2<std::string>(std::move(x), std::move(y)) {};
+        SVector2::SVector2() : Vector2<Strings::String>(Strings::String(""), Strings::String("")) {};
+        SVector2::SVector2(Strings::String x, Strings::String y): Vector2<Strings::String>(std::move(x), std::move(y)) {};
 
 
-        SVector3::SVector3(): Vector3<std::string>("", "", ""){};
-        SVector3::SVector3(std::string x, std::string y, std::string z): Vector3<std::string>(std::move(x), std::move(y), std::move(z)) {}
+        SVector3::SVector3(): Vector3<Strings::String>(Strings::String(""), Strings::String(""), Strings::String("")){};
+        SVector3::SVector3(Strings::String x, Strings::String y, Strings::String z): Vector3<Strings::String>(std::move(x), std::move(y), std::move(z)) {}
 
 
-        SVector4::SVector4(): Vector4<std::string>("", "", "", ""){};
-        SVector4::SVector4(std::string x, std::string y, std::string z, std::string s): Vector4<std::string>(std::move(x), std::move(y), std::move(z), std::move(s)) {}
+        SVector4::SVector4(): Vector4<Strings::String>(Strings::String(""), Strings::String(""), Strings::String(""), Strings::String("")){};
+        SVector4::SVector4(Strings::String x, Strings::String y, Strings::String z, Strings::String s): Vector4<Strings::String>(std::move(x), std::move(y), std::move(z), std::move(s)) {}
 
 
 

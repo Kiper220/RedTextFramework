@@ -1,12 +1,12 @@
 #include <utility>
-#include <string>
+#include <Implementation/RTD/Strings/String.h>
 
 //
 // Created by kiper220 on 14.06.2021.
 //
 
-#ifndef REDTEXTAPPLICATION_VECTOR_H
-#define REDTEXTAPPLICATION_VECTOR_H
+#ifndef REDTEXTAPPLICATION_MATH_VECTOR_H
+#define REDTEXTAPPLICATION_MATH_VECTOR_H
 
 
 namespace RTF{
@@ -253,22 +253,22 @@ namespace RTF{
         };
 
 
-        class SVector2 : public Vector2<std::string> {
+        class SVector2 : public Vector2<Strings::String> {
         public:
             SVector2();
-            SVector2(std::string x, std::string y);
+            SVector2(Strings::String x, Strings::String y);
         };
 
-        class SVector3 : public Vector3<std::string>{
+        class SVector3 : public Vector3<Strings::String>{
         public:
             SVector3();
-            SVector3(std::string x, std::string y, std::string z);
+            SVector3(Strings::String x, Strings::String y, Strings::String z);
         };
 
-        class SVector4 : public Vector4<std::string>{
+        class SVector4 : public Vector4<Strings::String>{
         public:
             SVector4();
-            SVector4(std::string x, std::string y, std::string z, std::string s);
+            SVector4(Strings::String x, Strings::String y, Strings::String z, Strings::String s);
         };
 
 
@@ -541,4 +541,4 @@ namespace RTF{
     }
 }
 
-#endif //REDTEXTAPPLICATION_VECTOR_H
+#endif //REDTEXTAPPLICATION_MATH_VECTOR_H

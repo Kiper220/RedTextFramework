@@ -5,7 +5,7 @@
 #ifndef REDTEXTAPPLICATION_EVENT_H
 #define REDTEXTAPPLICATION_EVENT_H
 
-#include <Implementation/RTD/Containers/SharedVector.h>
+#include <Implementation/RTD/Types/Vector.h>
 
 namespace RTF{
     namespace Events{

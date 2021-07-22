@@ -4,7 +4,7 @@
 
 #ifndef REDTEXTAPPLICATION_EXCEPTION_H
 #define REDTEXTAPPLICATION_EXCEPTION_H
-#include <Implementation/RTD/Strings/SharedString.h>
+#include <Implementation/RTD/Strings/String.h>
 
 namespace RTF{
     namespace Exceptions{
@@ -13,7 +13,7 @@ namespace RTF{
             Exception() noexcept;
             Exception(const Exception& exception) noexcept;
 
-            virtual Strings::SharedString What() = 0;
+            virtual Strings::String What() = 0;
 
             virtual ~Exception() = 0;
         };
