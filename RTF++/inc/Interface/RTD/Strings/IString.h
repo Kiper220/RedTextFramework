@@ -7,7 +7,7 @@
 
 namespace RTF{
     namespace Strings {
-        class String; //Only UTF-8
+        class SharedString; //Only UTF-8
     }
 }
 

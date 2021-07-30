@@ -1,5 +1,5 @@
 #include <utility>
-#include <Implementation/RTD/Strings/String.h>
+#include <Implementation/RTD/Strings/SharedString.h>
 
 //
 // Created by kiper220 on 14.06.2021.
@@ -253,22 +253,22 @@ namespace RTF{
         };
 
 
-        class SVector2 : public Vector2<Strings::String> {
+        class SVector2 : public Vector2<Strings::SharedString> {
         public:
             SVector2();
-            SVector2(Strings::String x, Strings::String y);
+            SVector2(Strings::SharedString x, Strings::SharedString y);
         };
 
-        class SVector3 : public Vector3<Strings::String>{
+        class SVector3 : public Vector3<Strings::SharedString>{
         public:
             SVector3();
-            SVector3(Strings::String x, Strings::String y, Strings::String z);
+            SVector3(Strings::SharedString x, Strings::SharedString y, Strings::SharedString z);
         };
 
-        class SVector4 : public Vector4<Strings::String>{
+        class SVector4 : public Vector4<Strings::SharedString>{
         public:
             SVector4();
-            SVector4(Strings::String x, Strings::String y, Strings::String z, Strings::String s);
+            SVector4(Strings::SharedString x, Strings::SharedString y, Strings::SharedString z, Strings::SharedString s);
         };
 
 

@@ -8,7 +8,7 @@
 namespace RTF {
     namespace Types{
         template<typename T>
-        class APointer;
+        class ASharedPointer;
     }
 }
 
