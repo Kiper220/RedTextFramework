@@ -1,6 +1,4 @@
 #include <iostream>
-#include <iterator>
-#include <RedTextFramework>
 #include <sys/resource.h>
 #include <list>
 #include <ctime>
@@ -10,6 +8,7 @@
 using namespace RTF;
 
 int main() {
+    __mode_t test;
     clock_t t0;
     double time1, time2;
     struct rusage usage{};
