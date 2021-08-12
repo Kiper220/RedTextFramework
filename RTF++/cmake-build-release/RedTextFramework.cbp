@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="RedTextFramework"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;CMake Files\src\;CMake Files\src\RTD\;CMake Files\src\RTD\Strings\;CMake Files\src\RTD\Math\;CMake Files\src\RTD\Strings\;CMake Files\cmake\;CMake Files\cmake\Linux\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/home/kiper220/Проекты/RedTextApplication/RTF++/cmake-build-release"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/home/kiper220/Проекты/RedTextApplication/RTF++/cmake-build-release/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/home/kiper220/Проекты/RedTextApplication/RTF++/cmake-build-release/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/home/kiper220/Проекты/RedTextApplication/RTF++/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/home/kiper220/Проекты/RedTextApplication/RTF++/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/home/kiper220/Проекты/RedTextApplication/RTF++/cmake-build-release"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/home/kiper220/Проекты/RedTextApplication/RTF++/cmake-build-release/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/home/kiper220/Проекты/RedTextApplication/RTF++/cmake-build-release/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/home/kiper220/Проекты/RedTextApplication/RTF++/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/home/kiper220/Проекты/RedTextApplication/RTF++/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/home/kiper220/Проекты/RedTextApplication/RTF++/cmake-build-release"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/home/kiper220/Проекты/RedTextApplication/RTF++/cmake-build-release/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/home/kiper220/Проекты/RedTextApplication/RTF++/cmake-build-release/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/home/kiper220/Проекты/RedTextApplication/RTF++/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/home/kiper220/Проекты/RedTextApplication/RTF++/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="RTF_PP">
+				<Option output="/home/kiper220/Проекты/RedTextApplication/RTF++/cmake-build-release/libRTF_PP.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/kiper220/Проекты/RedTextApplication/RTF++/cmake-build-release"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/kiper220/Проекты/RedTextApplication/RTF++/inc"/>
+					<Add directory="/home/kiper220/Проекты/RedTextApplication/RTF++/."/>
+					<Add directory="/usr/include/c++/9"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/9"/>
+					<Add directory="/usr/include/c++/9/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/home/kiper220/Проекты/RedTextApplication/RTF++/cmake-build-release/Makefile&quot;  VERBOSE=1 RTF_PP"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/home/kiper220/Проекты/RedTextApplication/RTF++/cmake-build-release/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/home/kiper220/Проекты/RedTextApplication/RTF++/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/home/kiper220/Проекты/RedTextApplication/RTF++/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="RTF_PP/fast">
+				<Option output="/home/kiper220/Проекты/RedTextApplication/RTF++/cmake-build-release/libRTF_PP.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/kiper220/Проекты/RedTextApplication/RTF++/cmake-build-release"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/kiper220/Проекты/RedTextApplication/RTF++/inc"/>
+					<Add directory="/home/kiper220/Проекты/RedTextApplication/RTF++/."/>
+					<Add directory="/usr/include/c++/9"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/9"/>
+					<Add directory="/usr/include/c++/9/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/home/kiper220/Проекты/RedTextApplication/RTF++/cmake-build-release/Makefile&quot;  VERBOSE=1 RTF_PP/fast"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/home/kiper220/Проекты/RedTextApplication/RTF++/cmake-build-release/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/home/kiper220/Проекты/RedTextApplication/RTF++/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/home/kiper220/Проекты/RedTextApplication/RTF++/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/home/kiper220/Проекты/RedTextApplication/RTF++/src/RTD/Math/SharedVector.cpp">
+			<Option target="RTF_PP"/>
+		</Unit>
+		<Unit filename="/home/kiper220/Проекты/RedTextApplication/RTF++/src/RTD/Strings/SharedString.cpp">
+			<Option target="RTF_PP"/>
+		</Unit>
+		<Unit filename="/home/kiper220/Проекты/RedTextApplication/RTF++/src/RTD/Strings/ASharedPointer.cpp">
+			<Option target="RTF_PP"/>
+		</Unit>
+		<Unit filename="/home/kiper220/Проекты/RedTextApplication/RTF++/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+		<Unit filename="/home/kiper220/Проекты/RedTextApplication/RTF++/src/src.cmake">
+			<Option virtualFolder="CMake Files\src\"/>
+		</Unit>
+		<Unit filename="/home/kiper220/Проекты/RedTextApplication/RTF++/src/RTD/RTD.cmake">
+			<Option virtualFolder="CMake Files\src\RTD\"/>
+		</Unit>
+		<Unit filename="/home/kiper220/Проекты/RedTextApplication/RTF++/src/RTD/Strings/Strings.cmake">
+			<Option virtualFolder="CMake Files\src\RTD\Strings\"/>
+		</Unit>
+		<Unit filename="/home/kiper220/Проекты/RedTextApplication/RTF++/src/RTD/Math/Math.cmake">
+			<Option virtualFolder="CMake Files\src\RTD\Math\"/>
+		</Unit>
+		<Unit filename="/home/kiper220/Проекты/RedTextApplication/RTF++/src/RTD/Strings/Strings.cmake">
+			<Option virtualFolder="CMake Files\src\RTD\Strings\"/>
+		</Unit>
+		<Unit filename="/home/kiper220/Проекты/RedTextApplication/RTF++/cmake/main.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/kiper220/Проекты/RedTextApplication/RTF++/cmake/Linux/platform.cmake">
+			<Option virtualFolder="CMake Files\cmake\Linux\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

@@ -1,0 +1,4 @@
+TODO: Make all graphics classes(RTD)
+TODO: Make all window interface classes(RTD)
+TODO: Make all patterns classes(RTD)
+TODO: Make all types of container classes(RTD)
