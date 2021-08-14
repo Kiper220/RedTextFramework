@@ -2,9 +2,12 @@
 // Created by kiper220 on 15.07.2021.
 //
 
-#include <Implementation/RTD/Strings/SharedString.h>
+#include <RTD/Strings/SharedString.h>
 #include <cstring>
+#ifdef TESTS_ON
+void test();
 
+#endif
 
 namespace RTF {
     namespace Strings {

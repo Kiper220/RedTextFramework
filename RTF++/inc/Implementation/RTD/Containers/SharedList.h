@@ -1,8 +1,8 @@
 //
 // Created by kiper220 on 23.07.2021.
 //
-#include <Implementation/RTD/Types/SharedPointer.h>
-#include <Implementation/RTD/Types/Iterator.h>
+#include <RTD/Types/SharedPointer.h>
+#include <RTD/Types/Iterator.h>
 
 #ifndef REDTEXTAPPLICATION_LIST_H
 #define REDTEXTAPPLICATION_LIST_H

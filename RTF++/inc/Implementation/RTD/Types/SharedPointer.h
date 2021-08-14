@@ -1,11 +1,12 @@
 //
 // Created by kiper220 on 23.07.2021.
 //
-#include <Implementation/RTD/Types/Memory.h>
+#include <RTD/Types/Memory.h>
 #include <stdio.h>
 
 #ifndef REDTEXTAPPLICATION_SHAREDPOINTER_H
 #define REDTEXTAPPLICATION_SHAREDPOINTER_H
+
 
 namespace RTF {
     namespace Types{
@@ -148,6 +149,13 @@ namespace RTF {
             PointerType<T>* pointer = nullptr;
         };
     }
+
+#ifdef TESTS_ON
+#include <RTF/Tests.h>
+
+bool TEST(RTD, Types, SharedPointer)();
+
+#endif
 }
 
 #endif //REDTEXTAPPLICATION_SHAREDPOINTER_H

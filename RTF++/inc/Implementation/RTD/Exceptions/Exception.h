@@ -4,18 +4,18 @@
 
 #ifndef REDTEXTAPPLICATION_EXCEPTION_H
 #define REDTEXTAPPLICATION_EXCEPTION_H
-#include <Implementation/RTD/Strings/SharedString.h>
+#include <RTD/Strings/SharedString.h>
 
 namespace RTF{
     namespace Exceptions{
-        class Exception{
+        class IException{
         public:
-            Exception() noexcept;
-            Exception(const Exception& exception) noexcept;
+            IException() noexcept;
+            IException(const IException& exception) noexcept;
 
             virtual Strings::SharedString What() = 0;
 
-            virtual ~Exception() = 0;
+            virtual ~IException() = 0;
         };
     }
 }

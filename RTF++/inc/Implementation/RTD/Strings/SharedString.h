@@ -4,7 +4,7 @@
 
 #ifndef REDTEXTAPPLICATION_SHAREDSTRING_H
 #define REDTEXTAPPLICATION_SHAREDSTRING_H
-#include <Implementation/RTD/Containers/SharedVector.h>
+#include <RTD/Containers/SharedVector.h>
 
 namespace RTF {
     namespace Strings {
@@ -50,6 +50,9 @@ namespace RTF {
             Container::SharedVector<char> string;
         };
     }
+#ifdef TESTS_ON
+bool TEST(RTD, Strings, SharedString)();
+#endif
 }
 
 #endif //REDTEXTAPPLICATION_SHAREDSTRING_H

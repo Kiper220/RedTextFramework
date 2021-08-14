@@ -2,7 +2,7 @@
 // Created by kiper220 on 11.07.2021.
 //
 
-#include <Implementation/RTD/Types/Memory.h>
+#include <RTD/Types/Memory.h>
 
 #ifndef REDTEXTAPPLICATION_APOINTER_H
 #define REDTEXTAPPLICATION_APOINTER_H
@@ -18,7 +18,7 @@ namespace RTF {
                     this->pointer->counter++;
                 }
             }
-            explicit ASharedPointer(T* memory){
+            ASharedPointer(T* memory){
                 if(memory == nullptr) return;
 
                 this->pointer = new PointerType<T>;
@@ -26,7 +26,7 @@ namespace RTF {
                 this->pointer->counter = 1;
                 this->pointer->isLiteral = false;
             }
-            explicit ASharedPointer(const T* memory){
+            ASharedPointer(const T* memory){
                 if(memory == nullptr) return;
 
                 this->pointer = new PointerType<T>;
@@ -161,6 +161,12 @@ namespace RTF {
             PointerType<T>* pointer = nullptr;
         };
     }
+#ifdef TESTS_ON
+#include <RTF/Tests.h>
+
+bool TEST(RTD, Types, ASharedPointer)();
+
+#endif
 }
 
 #endif //REDTEXTAPPLICATION_APOINTER_H

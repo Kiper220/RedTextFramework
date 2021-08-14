@@ -23,4 +23,9 @@ else()
 
 endif()
 
+if(Tests)
+    message(STATUS "Tests >>> ON")
+    add_definitions("-DTESTS_ON")
+endif()
+
 message("-------------- Completing The Configuration --------------")

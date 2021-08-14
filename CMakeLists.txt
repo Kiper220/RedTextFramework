@@ -3,6 +3,7 @@ project(RedTextApplication)
 
 set(CMAKE_CXX_STANDARD 17)
 
+set(Tests ON)
 add_subdirectory(RTF++)
 
 add_executable(RedTextApplication main.cpp)
