@@ -6,6 +6,7 @@
 #define REDTEXTAPPLICATION_SHAREDVECTOR_H
 
 #include <RTD/Types/ASharedPointer.h>
+#include <cstdio>
 
 namespace RTF{
     namespace Containers{
@@ -118,6 +119,7 @@ namespace RTF{
                     return;
 
                 Types::ASharedPointer<T> tmp(new T[this->lengthOfVector - (this->lengthOfVector % this->stepOfAllocate) + this->stepOfAllocate]);
+                printf("UnConstant: %lu\n", this->lengthOfVector - (this->lengthOfVector % this->stepOfAllocate) + this->stepOfAllocate);
 
                 for(uint64_t j = 0; j < this->lengthOfVector; j++)
                     tmp[j] = this->data[j];
