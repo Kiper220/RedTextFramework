@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.9.2)
 
-#Корней, ты меня конечно прости, но мне понравились переменные в CMake
+#Korney, du vergib mir natürlich, aber ich mochte die Variablen in CMake
 set(PROJECT_NAME RedTextApplication)
 project(${PROJECT_NAME})
 set(CMAKE_CXX_STANDARD 17)
