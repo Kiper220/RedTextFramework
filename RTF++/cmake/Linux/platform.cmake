@@ -1,6 +1,6 @@
 find_package(X11)
 
-if(${X11_FOUND} AND ${X11_Xi_FOUND})
+if(${X11_FOUND})
     message(STATUS "Window Server >>> X11")
 
 else()
