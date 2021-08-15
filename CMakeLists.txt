@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.9.2)
 
-#Корней, ты меня конечно прости, но мне понравились переменные в CMake 
+#РљРѕСЂРЅРµР№, С‚С‹ РјРµРЅСЏ РєРѕРЅРµС‡РЅРѕ РїСЂРѕСЃС‚Рё, РЅРѕ РјРЅРµ РїРѕРЅСЂР°РІРёР»РёСЃСЊ РїРµСЂРµРјРµРЅРЅС‹Рµ РІ CMake
 set(PROJECT_NAME RedTextApplication)
 project(${PROJECT_NAME})
 
