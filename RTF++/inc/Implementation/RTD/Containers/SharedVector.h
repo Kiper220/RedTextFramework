@@ -117,6 +117,7 @@ namespace RTF{
                 if(!this->data.IsLiteral())
                     return;
 
+                fprintf(stderr,"UnConstant: %lu\n", this->lengthOfVector - (this->lengthOfVector % this->stepOfAllocate) + this->stepOfAllocate);
                 Types::ASharedPointer<T> tmp(new T[this->lengthOfVector - (this->lengthOfVector % this->stepOfAllocate) + this->stepOfAllocate]);
 
                 for(uint64_t j = 0; j < this->lengthOfVector; j++)
