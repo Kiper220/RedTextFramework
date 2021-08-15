@@ -118,8 +118,11 @@ namespace RTF{
                 if(!this->data.IsLiteral())
                     return;
 
-                fprintf(stderr,"UnConstant: %lu\n", this->lengthOfVector - (this->lengthOfVector % this->stepOfAllocate) + this->stepOfAllocate);
                 Types::ASharedPointer<T> tmp(new T[this->lengthOfVector - (this->lengthOfVector % this->stepOfAllocate) + this->stepOfAllocate]);
+                if(tmp == nullptr){
+                    fprintf(stderr, "Blya, Sereg. Vse huinya, davai po novoi!\n");
+                    throw 123;
+                }
 
                 for(uint64_t j = 0; j < this->lengthOfVector; j++)
                     tmp[j] = this->data[j];
