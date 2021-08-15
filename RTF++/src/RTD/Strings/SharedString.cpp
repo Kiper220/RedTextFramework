@@ -55,7 +55,7 @@ namespace RTF {
         }
 
         SharedString SharedString::operator+(SharedString &&string) {
-            SharedString tmp = std::move(string);
+            SharedString tmp = (SharedString&&)string;
             return *this + tmp;
         }
         SharedString SharedString::operator+(const SharedString &string) {
@@ -93,7 +93,7 @@ namespace RTF {
         }
 
         SharedString &SharedString::operator+=(SharedString &&string){
-            SharedString tmp = std::move(string);
+            SharedString tmp = (SharedString&&)string;
             return *this += tmp;
         }
         SharedString &SharedString::operator+=(const SharedString &string) {
