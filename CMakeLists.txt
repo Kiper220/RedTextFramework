@@ -11,6 +11,7 @@ if(WIN32)
 endif()
 
 set(Tests ON)
+
 add_subdirectory(RTF++)
 
 add_executable(${PROJECT_NAME} main.cpp)
