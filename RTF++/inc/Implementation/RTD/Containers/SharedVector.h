@@ -8,7 +8,7 @@
 #include <RTD/Types/ASharedPointer.h>
 
 namespace RTF{
-    namespace Container{
+    namespace Containers{
         template<typename T>
         class SharedVector{
         public:
@@ -94,7 +94,7 @@ namespace RTF{
                 return this->lengthOfVector;
             }
 
-            void PushBack(const T& pushData){
+            void PushBack(T& pushData){
                 this->operator[](this->lengthOfVector) = pushData;
             }
             void PushBack(T pushData){

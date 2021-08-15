@@ -18,8 +18,8 @@ namespace RTF{
         private:
             SharedPointer<RObject> parentObject;
 
-            Container::SharedVector<RObject*> childrenObject;
-            Container::SharedVector<RObject> objectsEvents;
+            Containers::SharedVector<RObject*> childrenObject;
+            Containers::SharedVector<RObject> objectsEvents;
 
             Strings::SharedString objectName;
         };

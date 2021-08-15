@@ -14,7 +14,6 @@ if(Tests)
             ${RTF_TESTS_WIDGET})
 else()
     set(RTF_TESTS ${CMAKE_CURRENT_LIST_DIR}/Tests.cpp)
-
 endif()
 
 #Containers::Pair<bool,Containers::Pair<Module,UnderModule>> RunAllTest();

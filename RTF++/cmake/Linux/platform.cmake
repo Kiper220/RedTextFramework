@@ -1,4 +1,3 @@
-
 find_package(X11)
 
 if(${X11_FOUND} AND ${X11_Xi_FOUND})

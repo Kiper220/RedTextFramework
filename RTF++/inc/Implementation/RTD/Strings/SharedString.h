@@ -23,9 +23,11 @@ namespace RTF {
             SharedString& operator()(SharedString&& string);
             SharedString& operator()(const char* str);
 
+            SharedString operator+(SharedString &&string);
             SharedString operator+(const SharedString& string);
             SharedString operator+(const char* str);
 
+            SharedString& operator+=(SharedString&& string);
             SharedString& operator+=(const SharedString& string);
             SharedString& operator+=(const char* str);
 
@@ -47,7 +49,7 @@ namespace RTF {
             ~SharedString();
 
         private:
-            Container::SharedVector<char> string;
+            Containers::SharedVector<char> string;
         };
     }
 #ifdef TESTS_ON

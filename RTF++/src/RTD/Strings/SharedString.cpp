@@ -20,7 +20,7 @@ namespace RTF {
 
         SharedString::SharedString(const SharedString &string): string(string.string) {}
 
-        SharedString::SharedString(SharedString &&string): string((Container::SharedVector<char>&&)string.string) {}
+        SharedString::SharedString(SharedString &&string): string((Containers::SharedVector<char>&&)string.string) {}
 
         SharedString::SharedString(const char *str): string(str, strlen(str)){}
 
@@ -30,7 +30,7 @@ namespace RTF {
         }
 
         SharedString &SharedString::operator=(SharedString &&string) {
-            this->string = (Container::SharedVector<char>&&)string.string;
+            this->string = (Containers::SharedVector<char>&&)string.string;
             return *this;
         }
 
@@ -45,7 +45,7 @@ namespace RTF {
         }
 
         SharedString &SharedString::operator()(SharedString &&string) {
-            this->string = (Container::SharedVector<char>&&)string.string;
+            this->string = (Containers::SharedVector<char>&&)string.string;
             return *this;
         }
 
@@ -54,6 +54,10 @@ namespace RTF {
             return *this;
         }
 
+        SharedString SharedString::operator+(SharedString &&string) {
+            SharedString tmp = std::move(string);
+            return *this + tmp;
+        }
         SharedString SharedString::operator+(const SharedString &string) {
             SharedString str;
             str.string.SetSize(this->string.Size() + string.Size());
@@ -88,6 +92,10 @@ namespace RTF {
             return str;
         }
 
+        SharedString &SharedString::operator+=(SharedString &&string){
+            SharedString tmp = std::move(string);
+            return *this += tmp;
+        }
         SharedString &SharedString::operator+=(const SharedString &string) {
             *this = *this + string;
             return *this;
@@ -103,7 +111,7 @@ namespace RTF {
             if(this->string.Size() != string.Size())
                 return false;
             for(uint64_t i = 0; i < this->string.Size(); i++)
-                if((*this->string)[i] != (*((Container::SharedVector<char>&)string.string))[i])
+                if((*this->string)[i] != (*((Containers::SharedVector<char>&)string.string))[i])
                     return false;
 
             return true;

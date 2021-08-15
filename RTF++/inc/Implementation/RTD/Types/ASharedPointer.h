@@ -143,7 +143,7 @@ namespace RTF {
 
             T* operator*(){
                 if(this->pointer == nullptr)
-                    throw;
+                    throw 234;
                 return ((T*)this->pointer->data);
             }
 
