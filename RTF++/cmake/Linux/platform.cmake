@@ -7,5 +7,5 @@ else()
     message(FATAL_ERROR "X11 dev lib not found")
 endif()
 
-set(PLATFORM_LIBS ${X11_LIBRARIES} ${X11_Xi_LIB})
-set(PLATFORM_INC ${X11_INCLUDE_DIR} ${X11_Xi_INCLUDE_PATH})
+set(PLATFORM_LIBS ${X11_LIBRARIES})
+set(PLATFORM_INC ${X11_INCLUDE_DIR})
