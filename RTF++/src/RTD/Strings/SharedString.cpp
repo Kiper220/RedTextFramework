@@ -20,7 +20,7 @@ namespace RTF {
 
         SharedString::SharedString(const SharedString &string): string(string.string) {}
 
-        SharedString::SharedString(SharedString &&string): string((Containers::SharedVector<char>&&)string.string) {}
+        SharedString::SharedString(SharedString &&string) noexcept: string((Containers::SharedVector<char>&&)string.string) {}
 
         SharedString::SharedString(const char *str): string(str, strlen(str) + 1){}
 
@@ -29,7 +29,7 @@ namespace RTF {
             return *this;
         }
 
-        SharedString &SharedString::operator=(SharedString &&string) {
+        SharedString &SharedString::operator=(SharedString &&string) noexcept{
             this->string = (Containers::SharedVector<char>&&)string.string;
             return *this;
         }
