@@ -12,11 +12,11 @@ namespace RTF {
         public:
             SharedString();
             SharedString(const SharedString& string);
-            SharedString(SharedString&& string);
+            SharedString(SharedString&& string) noexcept;
             SharedString(const char* str);
 
             SharedString& operator=(const SharedString& string);
-            SharedString& operator=(SharedString&& string);
+            SharedString& operator=(SharedString&& string) noexcept;
             SharedString& operator=(const char* str);
 
             SharedString& operator()(const SharedString& string);

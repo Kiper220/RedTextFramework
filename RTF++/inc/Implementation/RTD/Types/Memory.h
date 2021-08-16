@@ -21,6 +21,19 @@ namespace RTF{
 
                 return *this;
             }
+            bool operator==(const PointerType& pointerType) noexcept{
+                return this->data == pointerType.data;
+            }
+            bool operator==(T* data) noexcept{
+                return this->data == data;
+            }
+            bool operator!=(const PointerType& pointerType) noexcept{
+                return this->data != pointerType.data;
+            }
+            bool operator!=(T* data) noexcept{
+                return this->data != data;
+            }
+
 
             T* data;
             std::atomic<size_t> counter;
