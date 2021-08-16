@@ -3,6 +3,7 @@
 //
 
 #include <RTD/Types/Memory.h>
+#include <exception>
 
 #ifndef REDTEXTAPPLICATION_APOINTER_H
 #define REDTEXTAPPLICATION_APOINTER_H
@@ -12,13 +13,13 @@ namespace RTF {
         template<typename T>
         class ASharedPointer{
         public:
-            ASharedPointer() = default;
-            ASharedPointer(const ASharedPointer& aPointer): pointer(aPointer.pointer){
+            ASharedPointer() noexcept = default;
+            ASharedPointer(const ASharedPointer& aPointer) noexcept: pointer(aPointer.pointer){
                 if(this->pointer != nullptr){
                     this->pointer->counter++;
                 }
             }
-            ASharedPointer(T* memory){
+            ASharedPointer(T* memory) noexcept{
                 if(memory == nullptr) return;
 
                 this->pointer = new PointerType<T>;
@@ -26,7 +27,7 @@ namespace RTF {
                 this->pointer->counter = 1;
                 this->pointer->isLiteral = false;
             }
-            ASharedPointer(const T* memory){
+            ASharedPointer(const T* memory) noexcept{
                 if(memory == nullptr) return;
 
                 this->pointer = new PointerType<T>;
@@ -35,7 +36,7 @@ namespace RTF {
                 this->pointer->isLiteral = true;
             }
 
-            ASharedPointer& operator=(const ASharedPointer& aPointer){
+            ASharedPointer& operator=(const ASharedPointer& aPointer) noexcept{
                 this->DestructThis();
                 if(aPointer.IsEmpty()) return *this;
 
@@ -44,7 +45,7 @@ namespace RTF {
 
                 return *this;
             }
-            ASharedPointer& operator=(T* memory){
+            ASharedPointer& operator=(T* memory) noexcept{
                 this->DestructThis();
                 if(memory == nullptr) return *this;
 
@@ -55,7 +56,7 @@ namespace RTF {
 
                 return *this;
             }
-            ASharedPointer& operator=(const T* memory){
+            ASharedPointer& operator=(const T* memory) noexcept{
                 this->DestructThis();
                 if(memory == nullptr) return *this;
 
@@ -67,7 +68,7 @@ namespace RTF {
                 return *this;
             }
 
-            ASharedPointer& operator()(const ASharedPointer& aPointer){
+            ASharedPointer& operator()(const ASharedPointer& aPointer) noexcept{
                 this->DestructThis();
                 if(aPointer.IsEmpty()) return *this;
 
@@ -76,7 +77,7 @@ namespace RTF {
 
                 return *this;
             }
-            ASharedPointer& operator()(T* memory){
+            ASharedPointer& operator()(T* memory) noexcept{
                 this->DestructThis();
                 if(memory == nullptr) return *this;
 
@@ -84,7 +85,7 @@ namespace RTF {
 
                 return *this;
             }
-            ASharedPointer& operator()(const T* memory){
+            ASharedPointer& operator()(const T* memory) noexcept{
                 this->DestructThis();
                 if(memory == nullptr) return *this;
 
@@ -93,16 +94,16 @@ namespace RTF {
                 return *this;
             }
 
-            bool operator==(const ASharedPointer &pointer1){
+            bool operator==(const ASharedPointer &pointer1) noexcept{
                 return this->pointer == pointer1.pointer;
             }
-            bool operator==(const PointerType<T> *pointer1){
+            bool operator==(const PointerType<T> *pointer1) noexcept{
                 return this->pointer == pointer1;
             }
-            bool operator!=(const ASharedPointer &pointer1){
+            bool operator!=(const ASharedPointer &pointer1) noexcept{
                 return this->pointer != pointer1.pointer;
             }
-            bool operator!=(const PointerType<T> *pointer1){
+            bool operator!=(const PointerType<T> *pointer1) noexcept{
                 return this->pointer != pointer1;
             }
 
@@ -112,16 +113,16 @@ namespace RTF {
                     throw;
                 return this->pointer->counter == 1;
             }
-            bool IsEmpty() const{
+            bool IsEmpty() const noexcept{
                 return this->pointer == nullptr;
             }
             bool IsLiteral() const{
                 if(this->pointer == nullptr)
-                    throw;
+                    throw std::exception("Error");
                 return this->pointer->isLiteral;
             }
 
-            void DestructThis(){
+            void DestructThis() noexcept {
                 if(this->pointer != nullptr){
                     if(--this->pointer->counter == 0){
                         if(!this->pointer->isLiteral)
