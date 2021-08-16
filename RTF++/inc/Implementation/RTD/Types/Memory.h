@@ -5,6 +5,7 @@
 #ifndef REDTEXTAPPLICATION_MEMORY_H
 #define REDTEXTAPPLICATION_MEMORY_H
 #include <atomic>
+#include <cstdio>
 
 namespace RTF{
     namespace Types{

@@ -3,7 +3,7 @@
 //
 
 #include <RTD/Types/Memory.h>
-#include <exception>
+#include <stdexcept>
 
 #ifndef REDTEXTAPPLICATION_APOINTER_H
 #define REDTEXTAPPLICATION_APOINTER_H
@@ -118,7 +118,7 @@ namespace RTF {
             }
             bool IsLiteral() const{
                 if(this->pointer == nullptr)
-                    throw std::exception("Error");
+                    throw std::runtime_error("Pointer equal nullptr!");
                 return this->pointer->isLiteral;
             }
 
@@ -144,7 +144,7 @@ namespace RTF {
 
             T* operator*(){
                 if(this->pointer == nullptr)
-                    throw 234;
+                    throw std::runtime_error("Pointer equal nullptr!");
                 return ((T*)this->pointer->data);
             }
 
