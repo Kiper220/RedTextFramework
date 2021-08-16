@@ -9,10 +9,9 @@ set(PROJECT_NAME RedTextApplication)
 project(${PROJECT_NAME})
 set(CMAKE_CXX_STANDARD 17)
 
-if(WIN32)
-    set(dir ${PROJECT_SOURCE_DIR})
-    set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${dir}/bin")
-endif()
+set(dir ${PROJECT_SOURCE_DIR})
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${dir}/bin")
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${dir}/bin")
 
 set(Tests ON)
 
