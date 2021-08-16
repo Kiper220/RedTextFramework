@@ -131,11 +131,11 @@ namespace RTF {
                 }
                 this->pointer = nullptr;
             }
-            T GetElement(uint64_t i) const{
+            T GetElement(size_t i) const{
                 return ((T*)this->pointer->data)[i];
             }
 
-            T& operator[](uint64_t i){
+            T& operator[](size_t i){
                 if(this->pointer == nullptr)
                     throw;
                 return ((T*)this->pointer->data)[i];

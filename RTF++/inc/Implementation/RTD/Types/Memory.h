@@ -12,7 +12,7 @@ namespace RTF{
         template<typename T>
         class PointerType{
         public:
-            PointerType(T* data = (T*)nullptr, uint64_t counter = 0, bool isLiteral = false): data(data), counter(counter), isLiteral(isLiteral){}
+            PointerType(T* data = (T*)nullptr, size_t counter = 0, bool isLiteral = false): data(data), counter(counter), isLiteral(isLiteral){}
             PointerType(const PointerType& pointerType): data(pointerType.data), counter(pointerType.counter), isLiteral(pointerType.isLiteral){}
             PointerType& operator=(const PointerType& pointerType){
                 this->data = pointerType.data;
@@ -23,7 +23,7 @@ namespace RTF{
             }
 
             T* data;
-            std::atomic<uint64_t> counter;
+            std::atomic<size_t> counter;
             bool isLiteral;
         };
     }
