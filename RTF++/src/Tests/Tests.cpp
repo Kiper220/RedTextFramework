@@ -12,15 +12,16 @@ namespace RTF{
     namespace Tests{
         Containers::Pair<bool,Containers::Pair<char,char>> RunAllTest(){
 #ifdef TESTS_ON
-            if(!TEST(RTD,Types,ASharedPointer)())
-                return {false, {_RTD, UnderModule::_RTD_TYPES}};
+            for(int i = 0; i < 50; i++){
+                if(!TEST(RTD,Types,ASharedPointer)())
+                    return {false, {_RTD, UnderModule::_RTD_TYPES}};
 
-            if(!TEST(RTD,Types,SharedPointer)())
-                return {false, {_RTD, UnderModule::_RTD_TYPES}};
+                if(!TEST(RTD,Types,SharedPointer)())
+                    return {false, {_RTD, UnderModule::_RTD_TYPES}};
 
-            if(!TEST(RTD,Strings,SharedString)())
-                return {false, {_RTD, UnderModule::_RTD_STRINGS}};
-
+                if(!TEST(RTD,Strings,SharedString)())
+                    return {false, {_RTD, UnderModule::_RTD_STRINGS}};
+            }
 
 #endif
             return {true, {_NONE, UnderModule::_RTD_NONE}};
