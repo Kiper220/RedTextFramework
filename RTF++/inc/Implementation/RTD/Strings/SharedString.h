@@ -39,7 +39,7 @@ namespace RTF {
 
             char& operator[](uint64_t i);
 
-            operator const char*();
+            explicit operator const char*();
 
             SharedString& ToUpper();
             SharedString& ToLower();
