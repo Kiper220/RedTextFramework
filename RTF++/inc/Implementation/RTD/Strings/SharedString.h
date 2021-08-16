@@ -12,11 +12,11 @@ namespace RTF {
         public:
             SharedString();
             SharedString(const SharedString& string);
-            SharedString(SharedString&& string);
+            SharedString(SharedString&& string) noexcept;
             SharedString(const char* str);
 
             SharedString& operator=(const SharedString& string);
-            SharedString& operator=(SharedString&& string);
+            SharedString& operator=(SharedString&& string) noexcept;
             SharedString& operator=(const char* str);
 
             SharedString& operator()(const SharedString& string);
@@ -37,14 +37,14 @@ namespace RTF {
             bool operator!=(const SharedString& string);
             bool operator!=(const char* str);
 
-            char& operator[](uint64_t i);
+            char& operator[](size_t i);
 
-            operator const char*();
+            explicit operator const char*();
 
             SharedString& ToUpper();
             SharedString& ToLower();
 
-            uint64_t Size() const;
+            size_t Size() const;
 
             ~SharedString();
 

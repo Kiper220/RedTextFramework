@@ -20,22 +20,22 @@ namespace RTF {
 
         SharedString::SharedString(const SharedString &string): string(string.string) {}
 
-        SharedString::SharedString(SharedString &&string): string((Containers::SharedVector<char>&&)string.string) {}
+        SharedString::SharedString(SharedString &&string) noexcept: string((Containers::SharedVector<char>&&)string.string) {}
 
-        SharedString::SharedString(const char *str): string(str, strlen(str)){}
+        SharedString::SharedString(const char *str): string(str, strlen(str) + 1){}
 
         SharedString &SharedString::operator=(const SharedString &string) {
             this->string = string.string;
             return *this;
         }
 
-        SharedString &SharedString::operator=(SharedString &&string) {
+        SharedString &SharedString::operator=(SharedString &&string) noexcept{
             this->string = (Containers::SharedVector<char>&&)string.string;
             return *this;
         }
 
         SharedString &SharedString::operator=(const char *str) {
-            this->string(str, strlen(str));
+            this->string(str, strlen(str) + 1);
             return *this;
         }
 
@@ -50,7 +50,7 @@ namespace RTF {
         }
 
         SharedString &SharedString::operator()(const char *str) {
-            this->string(str, strlen(str));
+            this->string(str, strlen(str) + 1);
             return *this;
         }
 
@@ -60,14 +60,14 @@ namespace RTF {
         }
         SharedString SharedString::operator+(const SharedString &string) {
             SharedString str;
-            str.string.SetSize(this->string.Size() + string.Size());
-            uint64_t i = 0;
+            str.string.SetSize(this->Size() + string.Size() + 1);
+            size_t i = 0;
 
             for(; i < this->string.Size(); i++){
                 str.string[i] = this->string[i];
             }
 
-            for(uint64_t j = 0; j < string.Size(); i++, j++){
+            for(size_t j = 0; j <= string.Size(); i++, j++){
                 str.string[i] = string.string.GetElement(j);
             }
 
@@ -76,16 +76,16 @@ namespace RTF {
 
         SharedString SharedString::operator+(const char *string1) {
             SharedString str;
-            uint64_t size = strlen(string1);
+            size_t size = strlen(string1) + 1;
 
-            str.string.SetSize(this->string.Size() + size);
-            uint64_t i = 0;
+            str.string.SetSize(this->Size() + size);
+            size_t i = 0;
 
             for(; i < this->string.Size(); i++){
                 str.string[i] = this->string[i];
             }
 
-            for(uint64_t j = 0; j < size; i++, j++){
+            for(size_t j = 0; j <= size; i++, j++){
                 str.string[i] = string1[j];
             }
 
@@ -108,18 +108,18 @@ namespace RTF {
 
 
         bool SharedString::operator==(const SharedString& string) {
-            if(this->string.Size() != string.Size())
+            if(this->Size() != string.Size())
                 return false;
-            for(uint64_t i = 0; i < this->string.Size(); i++)
+            for(size_t i = 0; i < this->string.Size(); i++)
                 if((*this->string)[i] != (*((Containers::SharedVector<char>&)string.string))[i])
                     return false;
 
             return true;
         }
         bool SharedString::operator==(const char* str) {
-            if(this->string.Size() != strlen(str))
+            if(this->Size() != strlen(str))
                 return false;
-            for(uint64_t i = 0; i < this->string.Size(); i++)
+            for(size_t i = 0; i < this->string.Size(); i++)
                 if((*this->string)[i] != str[i])
                     return false;
 
@@ -134,7 +134,7 @@ namespace RTF {
             return !(*this == str);
         }
 
-        char& SharedString::operator[](uint64_t i){
+        char& SharedString::operator[](size_t i){
             return this->string[i];
         }
 
@@ -154,8 +154,8 @@ namespace RTF {
             return *this;
         }
 
-        uint64_t SharedString::Size() const{
-            return this->string.Size();
+        size_t SharedString::Size() const{
+            return this->string.Size() - 1;
         }
 
         SharedString::~SharedString() = default;

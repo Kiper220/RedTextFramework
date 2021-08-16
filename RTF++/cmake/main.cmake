@@ -13,6 +13,7 @@ if(LINUX)
     message(STATUS "Platform >>> Linux")
     include(${CMAKE_CURRENT_LIST_DIR}/Linux/platform.cmake)
 elseif(WIN32)
+    include(${CMAKE_CURRENT_LIST_DIR}/Windows/platform.cmake)
     message(STATUS "Platform >>> Windows")
 
 elseif(MACOS)
