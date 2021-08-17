@@ -3,8 +3,8 @@
 //
 
 #include <RTF/Tests.h>
-#include <RTD/Types/SharedPointer.h>
-#include <RTD/Types/ASharedPointer.h>
+#include <RTD/Memory/SharedPointer.h>
+#include <RTD/Memory/ASharedPointer.h>
 #include <RTD/Strings/SharedString.h>
 #include <iostream>
 
@@ -22,7 +22,6 @@ namespace RTF{
                 if(!TEST(RTD,Strings,SharedString)())
                     return {false, {_RTD, UnderModule::_RTD_STRINGS}};
             }
-
 #endif
             return {true, {_NONE, UnderModule::_RTD_NONE}};
         }

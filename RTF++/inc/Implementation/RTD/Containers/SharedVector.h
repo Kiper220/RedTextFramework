@@ -5,7 +5,7 @@
 #ifndef REDTEXTAPPLICATION_SHAREDVECTOR_H
 #define REDTEXTAPPLICATION_SHAREDVECTOR_H
 
-#include <RTD/Types/ASharedPointer.h>
+#include <RTD/Memory/ASharedPointer.h>
 #include <cstdio>
 
 namespace RTF{

@@ -2,7 +2,7 @@
 // Created by kiper220 on 14.08.2021.
 //
 #include <RTF/Tests.h>
-#include <RTD/Types/ASharedPointer.h>
+#include <RTD/Memory/ASharedPointer.h>
 
 
 namespace RTF{

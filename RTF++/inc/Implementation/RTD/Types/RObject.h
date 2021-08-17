@@ -6,7 +6,7 @@
 #define REDTEXTAPPLICATION_ROBJECT_H
 
 #include <RTD/Strings/SharedString.h>
-#include <RTD/Types/SharedPointer.h>
+#include <RTD/Memory/SharedPointer.h>
 
 namespace RTF{
     namespace Types{

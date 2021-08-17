@@ -1,12 +1,12 @@
 //
 // Created by kiper220 on 23.07.2021.
 //
-#include <RTD/Types/Memory.h>
-#include <stdio.h>
 
 #ifndef REDTEXTAPPLICATION_SHAREDPOINTER_H
 #define REDTEXTAPPLICATION_SHAREDPOINTER_H
 
+#include <RTD/Memory/Memory.h>
+#include <stdio.h>
 
 namespace RTF {
     namespace Types{

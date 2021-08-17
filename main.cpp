@@ -1,5 +1,5 @@
 #include <RTF/Tests.h>
-#include <RTD/Strings/SharedString.h>
+#include <RTF.h>
 #include <iostream>
 
 int main() {

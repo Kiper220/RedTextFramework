@@ -4,7 +4,7 @@
 
 #ifndef REDTEXTAPPLICATION_TESTS_H
 #define REDTEXTAPPLICATION_TESTS_H
-#include <RTD/Containers/Pair.h>
+#include <RTD/Types/Pair.h>
 
 
 namespace RTF{

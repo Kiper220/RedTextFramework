@@ -2,7 +2,7 @@
 // Created by kiper220 on 14.08.2021.
 //
 #include <RTF/Tests.h>
-#include <RTD/Types/SharedPointer.h>
+#include <RTD/Memory/SharedPointer.h>
 
 namespace RTF{
     bool TEST(RTD, Types, SharedPointer)(){     /// warning: see the memory leak
