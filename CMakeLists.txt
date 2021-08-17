@@ -15,7 +15,7 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${dir}/bin")
 
 set(Tests ON)
 
-add_subdirectory(RTF++)
+add_subdirectory(RTF_PP)
 
 add_executable(${PROJECT_NAME} main.cpp)
 
