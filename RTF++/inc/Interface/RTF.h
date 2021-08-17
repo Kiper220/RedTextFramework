@@ -6,5 +6,6 @@
 #define CMAKE_INSTALL_CMAKE_RTF_H
 
 #include <RTD/RTD.h>
+#include <Tests/RTF/ITests.h>
 
 #endif //CMAKE_INSTALL_CMAKE_RTF_H

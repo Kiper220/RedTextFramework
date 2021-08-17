@@ -163,7 +163,7 @@ namespace RTF {
         };
     }
 #ifdef TESTS_ON
-#include <RTF/Tests.h>
+#include <Tests/RTF/Tests.h>
 
 bool TEST(RTD, Types, ASharedPointer)();
 

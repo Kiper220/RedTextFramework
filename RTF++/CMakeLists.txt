@@ -9,4 +9,4 @@ include(cmake/main.cmake)
 add_library(RTF_PP SHARED ${RTF_SRC} inc/Interface/RTD/Memory/IMemory.h)
 
 target_link_libraries(RTF_PP ${PLATFORM_LIBS})
-target_include_directories(RTF_PP PUBLIC inc/Interface inc/Implementation inc/Tests ${PLATFORM_INC})
+target_include_directories(RTF_PP PUBLIC inc/Interface inc/Implementation inc/Implementation/Tests ${PLATFORM_INC})
