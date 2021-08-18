@@ -7,6 +7,7 @@
 #include <string.h>
 #ifdef WIN32
 #include <xmemory>
+#define destroy std::destroy
 #elif linux
 #include <bits/stl_construct.h>
 #endif
@@ -28,7 +29,7 @@ namespace RTF {
                     throw 123;
 
                 if(size < this->allocatedSize)
-                    std::destroy((T*)&memory[size*sizeof(T)], (T*)(&memory[this->allocatedSize*sizeof(T)]));
+                    destroy((T*)&memory[size*sizeof(T)], (T*)(&memory[this->allocatedSize*sizeof(T)]));
 
                 else if(size > this->allocatedSize)
                     new(&memory[this->allocatedSize*sizeof(T)]) T[size - this->allocatedSize];
@@ -38,7 +39,7 @@ namespace RTF {
             }
 
             ~BasicStackAllocator(){
-                std::destroy((T*)memory, (T*)(&memory[allocatedSize*sizeof(T)]));
+                destroy((T*)memory, (T*)(&memory[allocatedSize*sizeof(T)]));
             }
 
         private:
@@ -72,7 +73,7 @@ namespace RTF {
                     new(&memory[this->allocatedSize]) T[size - firstPosition];
                 }
                 else {
-                    std::destroy(&((T*)memory)[size], &((T*)memory)[firstPosition]);
+                    destroy(&((T*)memory)[size], &((T*)memory)[firstPosition]);
 
                     memset(&((T*)memory)[size], 0, (firstPosition - size) * sizeof(T));
 
@@ -96,7 +97,7 @@ namespace RTF {
             }
 
             ~BasicAllocator(){
-                std::destroy(((T*)memory), &((T*)memory)[this->allocatedSize / sizeof(T)]);
+                destroy(((T*)memory), &((T*)memory)[this->allocatedSize / sizeof(T)]);
             }
 
         private:
