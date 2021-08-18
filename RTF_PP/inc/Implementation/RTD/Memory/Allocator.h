@@ -7,10 +7,10 @@
 #include <string.h>
 #ifdef WIN32
 #include <xmemory>
-#define destroy std::destroy
 #elif linux
 #include <bits/stl_construct.h>
 #endif
+#define destroy std::destroy
 
 namespace RTF {
     namespace Memory {
@@ -63,7 +63,7 @@ namespace RTF {
                         char* tmp = new char[pageSize];
                         memset(tmp, 0, pageSize);
 
-                        if(this->memory){
+                        if(this->memory != nullptr){
                             memmove(tmp, memory, allocatedSize);
                             delete[] memory;
                         }
@@ -84,7 +84,7 @@ namespace RTF {
                         char* tmp = new char[pageSize];
                         memset(tmp, 0, pageSize);
 
-                        if(this->memory){
+                        if(this->memory != nullptr){
                             memmove(tmp, memory, allocatedSize);
                             delete[] memory;
                         }
@@ -98,6 +98,7 @@ namespace RTF {
 
             ~BasicAllocator(){
                 destroy(((T*)memory), &((T*)memory)[this->allocatedSize / sizeof(T)]);
+                delete[] memory;
             }
 
         private:
@@ -105,7 +106,7 @@ namespace RTF {
 
             size_t allocatedSize = 0;
             size_t pageSize = 0;
-            char* memory;
+            char* memory = nullptr;
         };
 
     }

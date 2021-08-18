@@ -33,11 +33,13 @@ int main() {
 #endif
     {
         RTF::Memory::BasicAllocator<T> test;
-        test.Allocate(5);
-        test.Allocate(2);
-        test.Allocate(3);
-        test.Allocate(512);
-        test.Allocate(255);
+        for(size_t i = 0; i < 500; i++){
+            test.Allocate(5);
+            test.Allocate(2);
+            test.Allocate(3);
+            test.Allocate(512);
+            test.Allocate(255);
+        }
     }
 
     if(RTF::Tests::RunAllTestAndLog())
