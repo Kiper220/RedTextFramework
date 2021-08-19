@@ -10,8 +10,8 @@ compiler:
   - gcc
   - clang
 packages:
-    - gcc-6
-    - g++-6
+    - gcc-9
+    - g++-9
 
 env:
   - TARGET_CPU=amd64 BUILD_CONFIGURATION=Release
