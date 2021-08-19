@@ -9,11 +9,17 @@ os:
 compiler:
   - gcc
   - clang
+packages:
+    - gcc-6
+    - g++-6
 
 env:
   - TARGET_CPU=amd64 BUILD_CONFIGURATION=Release
 
 script:
+  # скрипт связывания gcc-9 с gcc
+  - sudo ln -s /usr/bin/gcc-9 /usr/local/bin/gcc
+  - sudo ln -s /usr/bin/g++-9 /usr/local/bin/g++
   # скрипт сборки и тестирования проекта:
   - mkdir build
   - cd build
