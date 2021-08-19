@@ -19,6 +19,7 @@ env:
 
 script:
   # скрипт сборки и тестирования проекта:
+  - sudo apt install gcc-9
   - export CC=gcc-9
   - export CXX=g++-9
   - mkdir build
