@@ -22,7 +22,7 @@ namespace RTF {
             ASharedPointer(T* memory) noexcept{
                 if(memory == nullptr) return;
 
-                this->pointer = new PointerType<T>;
+                this->pointer = new Memory::PointerType<T>;
                 this->pointer->data = memory;
                 this->pointer->counter = 1;
                 this->pointer->isLiteral = false;
@@ -30,7 +30,7 @@ namespace RTF {
             ASharedPointer(const T* memory) noexcept{
                 if(memory == nullptr) return;
 
-                this->pointer = new PointerType<T>;
+                this->pointer = new Memory::PointerType<T>;
                 this->pointer->data = (T*)memory;
                 this->pointer->counter = 1;
                 this->pointer->isLiteral = true;
@@ -49,7 +49,7 @@ namespace RTF {
                 this->DestructThis();
                 if(memory == nullptr) return *this;
 
-                this->pointer = new PointerType<T>;
+                this->pointer = new Memory::PointerType<T>;
                 this->pointer->data = memory;
                 this->pointer->counter = 1;
                 this->pointer->isLiteral = false;
@@ -60,7 +60,7 @@ namespace RTF {
                 this->DestructThis();
                 if(memory == nullptr) return *this;
 
-                this->pointer = new PointerType<T>;
+                this->pointer = new Memory::PointerType<T>;
                 this->pointer->data = (T*)memory;
                 this->pointer->counter = 1;
                 this->pointer->isLiteral = true;
@@ -81,7 +81,7 @@ namespace RTF {
                 this->DestructThis();
                 if(memory == nullptr) return *this;
 
-                this->pointer = new PointerType<T>(memory, 1, false);
+                this->pointer = new Memory::PointerType<T>(memory, 1, false);
 
                 return *this;
             }
@@ -89,7 +89,7 @@ namespace RTF {
                 this->DestructThis();
                 if(memory == nullptr) return *this;
 
-                this->pointer = new PointerType<T>((T*)memory, 1, true);
+                this->pointer = new Memory::PointerType<T>((T*)memory, 1, true);
 
                 return *this;
             }
@@ -97,13 +97,13 @@ namespace RTF {
             bool operator==(const ASharedPointer &pointer1) noexcept{
                 return this->pointer == pointer1.pointer;
             }
-            bool operator==(const PointerType<T> *pointer1) noexcept{
+            bool operator==(const Memory::PointerType<T> *pointer1) noexcept{
                 return this->pointer == pointer1;
             }
             bool operator!=(const ASharedPointer &pointer1) noexcept{
                 return this->pointer != pointer1.pointer;
             }
-            bool operator!=(const PointerType<T> *pointer1) noexcept{
+            bool operator!=(const Memory::PointerType<T> *pointer1) noexcept{
                 return this->pointer != pointer1;
             }
 
@@ -154,12 +154,12 @@ namespace RTF {
             }
 
         private:
-            explicit ASharedPointer(const PointerType<T> &pointer1){
+            explicit ASharedPointer(const Memory::PointerType<T> &pointer1){
                 this->pointer = pointer1;
                 this->pointer->counter++;
             }
 
-            PointerType<T>* pointer = nullptr;
+            Memory::PointerType<T>* pointer = nullptr;
         };
     }
 #ifdef TESTS_ON

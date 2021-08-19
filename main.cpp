@@ -1,9 +1,14 @@
 #include <RTF.h>
 #include <iostream>
 #include <RTD/Memory/Allocator.h>
+#include <variant>
 #ifdef WIN32
 #include <Windows.h>
 #endif
+extern "C"{
+    #include <dlfcn.h>
+};
+
 
 class T{
 public:
@@ -20,9 +25,14 @@ public:
     static bool err;
     static int c;
 };
+class S{
+    T t;
+};
+
 
 int T::c = 0;
 bool T::err = false;
+
 
 using namespace std;
 
@@ -31,14 +41,15 @@ int main() {
 #ifdef WIN32
     SetConsoleOutputCP(CP_UTF8);
 #endif
+
     {
-        RTF::Memory::BasicAllocator<T> test;
+        RTF::Memory::BasicAllocator<S> test;
         for(size_t i = 0; i < 500; i++){
             test.Allocate(5);
             test.Allocate(2);
             test.Allocate(3);
             test.Allocate(512);
-            test.Allocate(255);
+            test.Allocate(25);
         }
     }
 

@@ -8,7 +8,7 @@
 #include <cstdio>
 
 namespace RTF{
-    namespace Types{
+    namespace Memory{
 
         template<typename T>
         class PointerType{
@@ -40,6 +40,41 @@ namespace RTF{
             std::atomic<size_t> counter;
             bool isLiteral;
         };
+        template<typename T>
+        struct IteratorTraits{
+        public:
+            typedef T   ValueType;
+            typedef T*  ValuePointer;
+            typedef T&  ValueReference;
+        };
+        template<typename T>
+        struct IteratorTraits<T*>{
+        public:
+            typedef T   ValueType;
+            typedef T*  ValuePointer;
+            typedef T&  ValueReference;
+        };
+        template<typename T>
+        struct IteratorTraits<const T*>{
+        public:
+            typedef T   ValueType;
+            typedef T*  ValuePointer;
+            typedef T&  ValueReference;
+        };
+        template<typename T>
+        inline void Destroy(T* pointer){
+            pointer->~T();
+        }
+
+
+        template<typename T>
+        inline void Destroy(T begin, T end) {
+            typedef typename IteratorTraits<T>::ValueType _Value_type;
+            if constexpr (!std::is_trivially_destructible_v<_Value_type>){
+                for(; begin != end; ++begin)
+                    Destroy(begin);
+            }
+        }
     }
 }
 
