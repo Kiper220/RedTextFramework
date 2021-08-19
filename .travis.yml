@@ -1,14 +1,10 @@
-dist:     trusty
+dist:     Bionic
 sudo:     true
 
 language: cpp
 
 os:
   - linux
-
-packages:
-  - gcc-9
-  - g++-9
 
 compiler:
   - gcc
@@ -19,10 +15,6 @@ env:
 
 script:
   # скрипт сборки и тестирования проекта:
-  - sudo apt update
-  - sudo apt install gcc-9
-  - export CC=gcc-9
-  - export CXX=g++-9
   - mkdir build
   - cd build
   - cmake .. -DCMAKE_BUILD_TYPE=$BUILD_CONFIGURATION -DTARGET_CPU=$TARGET_CPU
