@@ -281,7 +281,7 @@ namespace RTF {
             }
 
             Iterator Emplace(const Iterator& iterator, T&& data){
-                
+
             }
 
             Iterator& begin(){

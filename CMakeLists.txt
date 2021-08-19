@@ -19,9 +19,5 @@ add_subdirectory(RTF_PP)
 
 
 add_executable(${PROJECT_NAME} main.cpp)
-add_library(test SHARED test.cpp)
-
-target_link_libraries(${PROJECT_NAME} libdl.so)
-
 
 target_link_libraries(${PROJECT_NAME} RTF_PP)
