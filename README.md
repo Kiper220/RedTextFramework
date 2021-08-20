@@ -2,7 +2,7 @@
 [![Build Status](https://travis-ci.com/Kiper220/RedTextFramework.svg?branch=master)](https://travis-ci.com/Kiper220/RedTextFramework)
 
 
-* RedText Framework on [notabug.org(origin)](https://notabug.org/WetGrape/RedText-Framework)
+* RedText Framework on [Notabug(origin)](https://notabug.org/WetGrape/RedText-Framework)
 * RedText Framework on [Github(Travis-CI, Github)](https://github.com/Kiper220/RedTextFramework)
 
 On project work:
