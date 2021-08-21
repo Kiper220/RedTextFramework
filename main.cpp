@@ -1,7 +1,7 @@
 #include <RTF.h>
 #include <iostream>
 #include <RTD/Memory/Allocator.h>
-#include <variant>
+#include <vector>
 #ifdef WIN32
 #include <Windows.h>
 #endif
@@ -13,10 +13,15 @@ extern "C"{
 class T{
 public:
     T(){
+        std::cout << "construct\n";
         i = 1953719668;
         c++;
     }
+    void operator=(const T& t){
+        this->i = t.i;
+    }
     ~T(){
+        std::cout << "destruct\n";
         if(i != 1953719668)
             err = true;
         c--;
@@ -26,6 +31,7 @@ public:
     static int c;
 };
 class S{
+public:
     T t;
 };
 
@@ -41,17 +47,21 @@ int main() {
 #ifdef WIN32
     SetConsoleOutputCP(CP_UTF8);
 #endif
-
     {
         RTF::Memory::BasicAllocator<S> test;
-        for(size_t i = 0; i < 500; i++){
-            test.Allocate(5);
+        std::vector<S> test2;
+        for(size_t i = 0; i < 1; i++){
+            test.Allocate(1);
             test.Allocate(2);
-            test.Allocate(3);
-            test.Allocate(512);
-            test.Allocate(25);
+            test.Insert(test.begin(), S());
+            test.Allocate(2);
+            test.Allocate(0);
+            test.Allocate(0);
+            test.Allocate(0);
+            test.Allocate(1);
         }
     }
+    std::cout << T::c << '\n';
 
     if(RTF::Tests::RunAllTestAndLog())
         if(!T::err && !T::c){

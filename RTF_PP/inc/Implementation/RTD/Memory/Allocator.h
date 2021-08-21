@@ -56,13 +56,13 @@ namespace RTF {
                 Iterator operator++(int){
                     Iterator iterator(this->pointer, this->basicAllocator);
                     if(*this != basicAllocator.end())
-                        pointer++;
+                        pointer++, id++;
 
                     return iterator;
                 }
                 Iterator& operator++(){
                     if(*this != basicAllocator.end())
-                        pointer++;
+                        pointer++, id++;
 
                     return *this;
                 }
@@ -70,13 +70,13 @@ namespace RTF {
                 Iterator operator--(int){
                     Iterator iterator(this->pointer, this->basicAllocator);
                     if(*this != basicAllocator.begin())
-                        pointer--;
+                        pointer--, id--;
 
                     return iterator;
                 }
                 Iterator& operator--(){
                     if(*this != basicAllocator.begin())
-                        pointer--;
+                        pointer--, id--;
 
                     return *this;
                 }
@@ -174,7 +174,7 @@ namespace RTF {
                     return this->id >= id;
                 }
 
-                size_t GetSize(){
+                size_t GetId(){
                     return this->id;
                 }
 
@@ -186,9 +186,19 @@ namespace RTF {
                 }
 
             protected:
-                Iterator(BasicAllocator& basicAllocator): pointer((T*)nullptr), basicAllocator(basicAllocator) {}
-                Iterator(const Iterator& iterator): pointer(iterator.pointer), id(iterator.id), basicAllocator(iterator.basicAllocator) {}
-                Iterator(T* pointer, BasicAllocator& basicAllocator): pointer(pointer), basicAllocator(basicAllocator) {}
+                Iterator(BasicAllocator& basicAllocator):
+                pointer((T*)nullptr),
+                basicAllocator(basicAllocator) {}
+
+                Iterator(const Iterator& iterator):
+                pointer(iterator.pointer),
+                id(iterator.id),
+                basicAllocator(iterator.basicAllocator) {}
+
+                Iterator(T* pointer, size_t id, BasicAllocator& basicAllocator):
+                pointer(pointer),
+                id(id),
+                basicAllocator(basicAllocator) {}
 
                 Iterator& operator=(const Iterator& iterator){
                     this->pointer = iterator.pointer;
@@ -238,7 +248,7 @@ namespace RTF {
                         char* tmp = (char*)malloc(newSize);
                         memset(tmp, 0, newSize);
 
-                        memmove(tmp, this->memory, this->endIterator.GetSize() * sizeof(T));
+                        memmove(tmp, this->memory, this->endIterator.id * sizeof(T));
                         free(this->memory);
 
                         this->memory = tmp;
@@ -248,17 +258,18 @@ namespace RTF {
 
                         this->pageSize = newSize;
                     }
-                    new(&*this->endIterator) T[size - this->endIterator.GetSize()];
-                    this->endIterator += size - this->endIterator.GetSize();
+                    new(this->endIterator.pointer) T[size - this->endIterator.id];
+                    this->endIterator += size - this->endIterator.id;
                 }
                 else if(this->endIterator > size){
-                    if(size_t newSize = ((size * sizeof(T))/_size + 1) * _size; newSize < this->pageSize){
+                    size_t newSize = ((size * sizeof(T))/_size + 1) * _size;
+                    if(newSize < this->pageSize){
                         char* tmp = (char*)malloc(newSize);
                         memset(tmp, 0, newSize);
 
                         memmove(tmp, this->memory, size * sizeof(T));
 
-                        Destroy(&*(this->beginIterator + size), &*this->endIterator);
+                        Destroy((this->beginIterator + size).pointer, this->endIterator.pointer);
                         free(this->memory);
                         this->memory = tmp;
 
@@ -266,22 +277,149 @@ namespace RTF {
                         this->endIterator = this->beginIterator + size;
 
                         this->pageSize = newSize;
-                    } else
-                        Destroy(&*(this->beginIterator + size), &*this->endIterator);
-                    this->endIterator += size - this->endIterator.GetSize();
+                    } else{
+                        Destroy((this->beginIterator + size).pointer, this->endIterator.pointer);
+                        memset((this->beginIterator + size).pointer, 0, (this->endIterator.id - size) * sizeof(T));
+                    }
+                    this->endIterator += size - this->endIterator.id;
                 }
                 return this->beginIterator;
             }
 
-            Iterator Insert(const Iterator& iterator, T data){
+            /*Iterator Insert(const Iterator& iterator, T data){
+                if(this->pageSize < (this->endIterator * sizeof(T)).id){
+                    size_t newSize = ((this->endIterator.id * sizeof(T))/_size + 1) * _size;
+                    char* tmp = (char*)malloc(newSize);
+                    memset(tmp, 0, newSize);
 
-            }
+                    memmove(tmp, this->memory, this->iterator.id * sizeof(T));
+                    memmove(tmp + (this->iterator.id + 1) * sizeof(T),
+                            this->memory  + this->iterator.id,
+                            (this->endIterator.id - iterator.id - 1) * sizeof(T));
+
+                    new(tmp + (this->iterator.id)) T(data);
+                    free(this->memory);
+
+                    this->memory = tmp;
+                    this->beginIterator = this->memory;
+                    this->endIterator = this->beginIterator + this->endIterator + 1;
+
+                }
+                else{
+                    memmove(this->beginIterator.pointer + (this->iterator.id + 1) * sizeof(T),
+                            this->beginIterator.pointer + (this->iterator.id) * sizeof(T),
+                            this->endIterator.id * sizeof(T));
+
+                    new(this->beginIterator.pointer + (this->iterator.id)) T(data);
+
+                    this->endIterator += 1;
+                }
+
+                return Iterator(this->beginIterator.pointer + this->iterator.id, this->iterator.id, *this);
+            }*/
+
             Iterator Insert(const Iterator& iterator, const T& data){
+                if(this->pageSize < this->endIterator.id * sizeof(T)){
+                    size_t newSize = ((this->endIterator.id * sizeof(T))/_size + 1) * _size;
+                    char* tmp = (char*)malloc(newSize);
+                    memset(tmp, 0, newSize);
 
+                    memmove(tmp, this->memory, iterator.id * sizeof(T));
+                    memmove(tmp + (iterator.id + 1) * sizeof(T),
+                            this->memory  + iterator.id,
+                            (this->endIterator.id - iterator.id - 1) * sizeof(T));
+
+                    if constexpr(std::is_trivially_copy_constructible_v<T>){
+                        new(iterator.pointer) T(data);
+                    }
+                    else{
+                        new(iterator.pointer) T;
+                    }
+                    free(this->memory);
+
+                    this->memory = tmp;
+                    this->beginIterator.pointer = (T*)this->memory;
+                    this->endIterator = this->beginIterator + this->endIterator + 1;
+
+                }
+                else{
+                    memmove(&iterator.pointer[1], iterator.pointer, (this->endIterator.id - iterator.id) * sizeof(T));
+                    memset(iterator.pointer, 0, sizeof(T));
+
+
+                    if constexpr(std::is_trivially_copy_constructible_v<T>){
+                        new(iterator.pointer) T(data);
+                    }
+                    else{
+                        new(iterator.pointer) T;
+                    }
+
+                    this->endIterator += 1;
+                }
+
+                return Iterator(this->beginIterator.pointer + iterator.id, iterator.id, *this);
+            }
+            Iterator Insert(const Iterator& iterator){
+                if(this->pageSize < this->endIterator.id * sizeof(T)){
+                    size_t newSize = ((this->endIterator.id * sizeof(T))/_size + 1) * _size;
+                    char* tmp = (char*)malloc(newSize);
+                    memset(tmp, 0, newSize);
+
+                    memmove(tmp, this->memory, iterator.id * sizeof(T));
+                    memmove(tmp + (iterator.id + 1) * sizeof(T),
+                            this->memory  + iterator.id,
+                            (this->endIterator.id - iterator.id - 1) * sizeof(T));
+
+                    new(tmp + (iterator.id)) T();
+                    free(this->memory);
+
+                    this->memory = tmp;
+                    this->beginIterator.pointer = (T*)this->memory;
+                    this->endIterator = this->beginIterator + this->endIterator + 1;
+
+                }
+                else{
+                    memmove(&iterator.pointer[1], iterator.pointer, (this->endIterator.id - iterator.id) * sizeof(T));
+                    memset(iterator.pointer, 0, sizeof(T));
+
+                    new(iterator.pointer) T();
+
+                    this->endIterator += 1;
+                }
+
+                return Iterator(this->beginIterator.pointer + iterator.id, iterator.id, *this);
             }
 
             Iterator Emplace(const Iterator& iterator, T&& data){
+                if(this->pageSize < this->endIterator.id * sizeof(T)){
+                    size_t newSize = ((this->endIterator.id * sizeof(T))/_size + 1) * _size;
+                    char* tmp = (char*)malloc(newSize);
+                    memset(tmp, 0, newSize);
 
+                    memmove(tmp, this->memory, iterator.id * sizeof(T));
+                    memmove(tmp + (this->iterator.id + 1) * sizeof(T),
+                            this->memory  + iterator.id,
+                            (this->endIterator.id - iterator.id - 1) * sizeof(T));
+
+                    new(tmp + (iterator.id)) T(data);
+                    free(this->memory);
+
+                    this->memory = tmp;
+                    this->beginIterator = this->memory;
+                    this->endIterator = this->beginIterator + this->endIterator + 1;
+
+                }
+                else{
+                    memmove(this->beginIterator.pointer + (this->iterator.id + 1) * sizeof(T),
+                            this->beginIterator.pointer + (this->iterator.id) * sizeof(T),
+                            this->endIterator.id * sizeof(T));
+
+                    new(this->beginIterator.pointer + (this->iterator.id)) T(data);
+
+                    this->endIterator += 1;
+                }
+
+                return Iterator(this->beginIterator.pointer + this->iterator.id, this->iterator.id, *this);
             }
 
             Iterator& begin(){
@@ -313,7 +451,6 @@ namespace RTF {
             size_t pageSize = 0;
             char* memory = nullptr;
         };
-
     }
 }
 #endif //CMAKE_INSTALL_CMAKE_ALLOCATOR_H
