@@ -13,7 +13,6 @@ extern "C"{
 class T{
 public:
     T(){
-        std::cout << "construct\n";
         i = 1953719668;
         c++;
     }
@@ -21,7 +20,6 @@ public:
         this->i = t.i;
     }
     ~T(){
-        std::cout << "destruct\n";
         if(i != 1953719668)
             err = true;
         c--;
