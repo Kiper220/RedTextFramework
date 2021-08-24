@@ -6,6 +6,7 @@
 #include <RTD/Memory/SharedPointer.h>
 #include <RTD/Memory/ASharedPointer.h>
 #include <RTD/Strings/SharedString.h>
+#include <RTD/Memory/Allocator.h>
 #include <iostream>
 
 namespace RTF{
@@ -21,9 +22,12 @@ namespace RTF{
 
                 if(!TEST(RTD,Strings,SharedString)())
                     return {false, {_RTD, UnderModule::_RTD_STRINGS}};
+
+                if(!TEST(RTD,Memory,BasicAllocator)())
+                    return {false, {_RTD, UnderModule::_RTD_MEMORY}};
             }
 #endif
-            return {true, {_NONE, UnderModule::_RTD_NONE}};
+return {true, {_NONE, UnderModule::_RTD_NONE}};
         }
         bool RunAllTestAndLog(){
             auto allTestResoult = RTF::Tests::RunAllTest();
@@ -44,9 +48,9 @@ namespace RTF{
                                 std::cout << "\tUNDERMODULE ERROR: GameApplication;\n";
                                 break;
 
-                            case RTF::Tests::UnderModule::_APPLICATION_WIDGET_APPLICATION:
-                                std::cout << "\tUNDERMODULE ERROR: WidgetApplication;\n";
-                                break;
+                                case RTF::Tests::UnderModule::_APPLICATION_WIDGET_APPLICATION:
+                                    std::cout << "\tUNDERMODULE ERROR: WidgetApplication;\n";
+                                    break;
                         }
                         break;
                     }
@@ -59,12 +63,12 @@ namespace RTF{
                             case RTF::Tests::UnderModule::_DATA_COLLECT_DB:
                                 std::cout << "\tUNDERMODULE ERROR: DB;\n";
                                 break;
-                            case RTF::Tests::UnderModule::_DATA_COLLECT_INI:
-                                std::cout << "\tUNDERMODULE ERROR: INI;\n";
-                                break;
-                            case RTF::Tests::UnderModule::_DATA_COLLECT_JSON:
-                                std::cout << "\tUNDERMODULE ERROR: JSON;\n";
-                                break;
+                                case RTF::Tests::UnderModule::_DATA_COLLECT_INI:
+                                    std::cout << "\tUNDERMODULE ERROR: INI;\n";
+                                    break;
+                                    case RTF::Tests::UnderModule::_DATA_COLLECT_JSON:
+                                        std::cout << "\tUNDERMODULE ERROR: JSON;\n";
+                                        break;
                         }
                         break;
                     }
@@ -77,21 +81,21 @@ namespace RTF{
                             case RTF::Tests::UnderModule::_PLATFORM_GRAPHICS:
                                 std::cout << "\tUNDERMODULE ERROR: Graphics;\n";
                                 break;
-                            case RTF::Tests::UnderModule::_PLATFORM_INPUT:
-                                std::cout << "\tUNDERMODULE ERROR: Input;\n";
-                                break;
-                            case RTF::Tests::UnderModule::_PLATFORM_MULTIMEDIA:
-                                std::cout << "\tUNDERMODULE ERROR: Multimedia;\n";
-                                break;
-                            case RTF::Tests::UnderModule::_PLATFORM_NETWORK:
-                                std::cout << "\tUNDERMODULE ERROR: Network;\n";
-                                break;
-                            case RTF::Tests::UnderModule::_PLATFORM_SYSTEM:
-                                std::cout << "\tUNDERMODULE ERROR: System;\n";
-                                break;
-                            case RTF::Tests::UnderModule::_PLATFORM_UI:
-                                std::cout << "\tUNDERMODULE ERROR: UI;\n";
-                                break;
+                                case RTF::Tests::UnderModule::_PLATFORM_INPUT:
+                                    std::cout << "\tUNDERMODULE ERROR: Input;\n";
+                                    break;
+                                    case RTF::Tests::UnderModule::_PLATFORM_MULTIMEDIA:
+                                        std::cout << "\tUNDERMODULE ERROR: Multimedia;\n";
+                                        break;
+                                        case RTF::Tests::UnderModule::_PLATFORM_NETWORK:
+                                            std::cout << "\tUNDERMODULE ERROR: Network;\n";
+                                            break;
+                                            case RTF::Tests::UnderModule::_PLATFORM_SYSTEM:
+                                                std::cout << "\tUNDERMODULE ERROR: System;\n";
+                                                break;
+                                                case RTF::Tests::UnderModule::_PLATFORM_UI:
+                                                    std::cout << "\tUNDERMODULE ERROR: UI;\n";
+                                                    break;
                         }
                         break;
                     }
@@ -104,27 +108,30 @@ namespace RTF{
                             case RTF::Tests::UnderModule::_RTD_CONTAINERS:
                                 std::cout << "\tUNDERMODULE ERROR: Containers;\n";
                                 break;
-                            case RTF::Tests::UnderModule::_RTD_EVENTS:
-                                std::cout << "\tUNDERMODULE ERROR: Events;\n";
-                                break;
-                            case RTF::Tests::UnderModule::_RTD_EXCEPTIONS:
-                                std::cout << "\tUNDERMODULE ERROR: Exceptions;\n";
-                                break;
-                            case RTF::Tests::UnderModule::_RTD_GRAPHICS:
-                                std::cout << "\tUNDERMODULE ERROR: Graphics;\n";
-                                break;
-                            case RTF::Tests::UnderModule::_RTD_MATH:
-                                std::cout << "\tUNDERMODULE ERROR: Math;\n";
-                                break;
-                            case RTF::Tests::UnderModule::_RTD_PATTERNS:
-                                std::cout << "\tUNDERMODULE ERROR: Patterns;\n";
-                                break;
-                            case RTF::Tests::UnderModule::_RTD_STRINGS:
-                                std::cout << "\tUNDERMODULE ERROR: Strings;\n";
-                                break;
-                            case RTF::Tests::UnderModule::_RTD_TYPES:
-                                std::cout << "\tUNDERMODULE ERROR: Types;\n";
-                                break;
+                                case RTF::Tests::UnderModule::_RTD_EVENTS:
+                                    std::cout << "\tUNDERMODULE ERROR: Events;\n";
+                                    break;
+                                    case RTF::Tests::UnderModule::_RTD_EXCEPTIONS:
+                                        std::cout << "\tUNDERMODULE ERROR: Exceptions;\n";
+                                        break;
+                                        case RTF::Tests::UnderModule::_RTD_GRAPHICS:
+                                            std::cout << "\tUNDERMODULE ERROR: Graphics;\n";
+                                            break;
+                                            case RTF::Tests::UnderModule::_RTD_MATH:
+                                                std::cout << "\tUNDERMODULE ERROR: Math;\n";
+                                                break;
+                                                case RTF::Tests::UnderModule::_RTD_PATTERNS:
+                                                    std::cout << "\tUNDERMODULE ERROR: Patterns;\n";
+                                                    break;
+                                                    case RTF::Tests::UnderModule::_RTD_STRINGS:
+                                                        std::cout << "\tUNDERMODULE ERROR: Strings;\n";
+                                                        break;
+                                                        case RTF::Tests::UnderModule::_RTD_TYPES:
+                                                            std::cout << "\tUNDERMODULE ERROR: Types;\n";
+                                                            break;
+                                                            case RTF::Tests::UnderModule::_RTD_MEMORY:
+                                                                std::cout << "\tUNDERMODULE ERROR: Memory;\n";
+                                                                break;
                         }
                         break;
                     }
@@ -137,9 +144,9 @@ namespace RTF{
                             case RTF::Tests::UnderModule::_WIDGET_DYNAMIC:
                                 std::cout << "\tUNDERMODULE ERROR: Dynamic;\n";
                                 break;
-                            case RTF::Tests::UnderModule::_WIDGET_STATIC:
-                                std::cout << "\tUNDERMODULE ERROR: Static;\n";
-                                break;
+                                case RTF::Tests::UnderModule::_WIDGET_STATIC:
+                                    std::cout << "\tUNDERMODULE ERROR: Static;\n";
+                                    break;
                         }
                         break;
                     }
@@ -155,34 +162,4 @@ namespace RTF{
 #endif
         }
     }
-#ifdef TESTS_ON
-
-bool TEST(RTD, Strings, SharedString)(){
-        Strings::SharedString string1 = "HelO, WoRld! ПриВЕт, мИр!", string2 = "hELo, wOrLD! пРИвеТ, МиР!", string3 = "Hello, World! Привет, Мир!";
-        Strings::SharedString string4, string5, string6;
-
-        string4 = string1, string4.ToUpper();
-        string6 = string2, string6.ToUpper();
-
-        if(string4 != string6)
-            return false;
-        string5 = string6;
-
-        if(string5 != string4)
-            return false;
-
-        string5[5] = 't';
-
-        if(string4 != string6)
-            return false;
-
-        string4 += string5;
-        string6 += string5;
-
-        if(string4 != string6)
-            return false;
-
-        return true;
-    }
-#endif
 }

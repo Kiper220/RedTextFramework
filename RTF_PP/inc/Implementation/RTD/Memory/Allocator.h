@@ -4,8 +4,9 @@
 
 #ifndef CMAKE_INSTALL_CMAKE_ALLOCATOR_H
 #define CMAKE_INSTALL_CMAKE_ALLOCATOR_H
-#include <string.h>
 #include <RTD/Memory/Memory.h>
+#include <cstdlib>
+#include <new>
 //#define destroy std::destroy
 
 namespace RTF {
@@ -246,10 +247,12 @@ namespace RTF {
                     if(this->pageSize < size * sizeof(T)){
                         size_t newSize = ((size * sizeof(T))/_size + 1) * _size;
                         char* tmp = (char*)malloc(newSize);
-                        memset(tmp, 0, newSize);
+                        MemSet(tmp, 0, newSize);
 
-                        memmove(tmp, this->memory, this->endIterator.id * sizeof(T));
-                        free(this->memory);
+                        if(this->memory != nullptr){
+                            MemCopy<true>(tmp, this->memory, this->endIterator.id * sizeof(T));
+                            free(this->memory);
+                        }
 
                         this->memory = tmp;
 
@@ -265,9 +268,9 @@ namespace RTF {
                     size_t newSize = ((size * sizeof(T))/_size + 1) * _size;
                     if(newSize < this->pageSize){
                         char* tmp = (char*)malloc(newSize);
-                        memset(tmp, 0, newSize);
+                        MemSet(tmp, 0, newSize);
 
-                        memmove(tmp, this->memory, size * sizeof(T));
+                        MemCopy<true>(tmp, this->memory, size * sizeof(T));
 
                         Destroy((this->beginIterator + size).pointer, this->endIterator.pointer);
                         free(this->memory);
@@ -279,7 +282,7 @@ namespace RTF {
                         this->pageSize = newSize;
                     } else{
                         Destroy((this->beginIterator + size).pointer, this->endIterator.pointer);
-                        memset((this->beginIterator + size).pointer, 0, (this->endIterator.id - size) * sizeof(T));
+                        MemSet((this->beginIterator + size).pointer, 0, (this->endIterator.id - size) * sizeof(T));
                     }
                     this->endIterator += size - this->endIterator.id;
                 }
@@ -322,10 +325,10 @@ namespace RTF {
                 if(this->pageSize < this->endIterator.id * sizeof(T)){
                     size_t newSize = ((this->endIterator.id * sizeof(T))/_size + 1) * _size;
                     char* tmp = (char*)malloc(newSize);
-                    memset(tmp, 0, newSize);
+                    MemSet(tmp, 0, newSize);
 
-                    memmove(tmp, this->memory, iterator.id * sizeof(T));
-                    memmove(tmp + (iterator.id + 1) * sizeof(T),
+                    MemCopy<true>(tmp, this->memory, iterator.id * sizeof(T));
+                    MemCopy<true>(tmp + (iterator.id + 1) * sizeof(T),
                             this->memory  + iterator.id,
                             (this->endIterator.id - iterator.id - 1) * sizeof(T));
 
@@ -343,8 +346,10 @@ namespace RTF {
 
                 }
                 else{
-                    memmove(&iterator.pointer[1], iterator.pointer, (this->endIterator.id - iterator.id) * sizeof(T));
-                    memset(iterator.pointer, 0, sizeof(T));
+                    char* data = (char*)iterator.pointer;
+                    size_t size = (this->endIterator.id - iterator.id) * sizeof(T);
+                    MemCopy<false>((char*)&iterator.pointer[1], (char*)iterator.pointer, (this->endIterator.id - iterator.id) * sizeof(T));
+                    MemSet(iterator.pointer, 0, sizeof(T));
 
 
                     if constexpr(std::is_trivially_copy_constructible_v<T>){
@@ -363,10 +368,10 @@ namespace RTF {
                 if(this->pageSize < this->endIterator.id * sizeof(T)){
                     size_t newSize = ((this->endIterator.id * sizeof(T))/_size + 1) * _size;
                     char* tmp = (char*)malloc(newSize);
-                    memset(tmp, 0, newSize);
+                    MemSet(tmp, 0, newSize);
 
-                    memmove(tmp, this->memory, iterator.id * sizeof(T));
-                    memmove(tmp + (iterator.id + 1) * sizeof(T),
+                    MemCopy<true>(tmp, this->memory, iterator.id * sizeof(T));
+                    MemCopy<true>(tmp + (iterator.id + 1) * sizeof(T),
                             this->memory  + iterator.id,
                             (this->endIterator.id - iterator.id - 1) * sizeof(T));
 
@@ -379,8 +384,8 @@ namespace RTF {
 
                 }
                 else{
-                    memmove(&iterator.pointer[1], iterator.pointer, (this->endIterator.id - iterator.id) * sizeof(T));
-                    memset(iterator.pointer, 0, sizeof(T));
+                    MemCopy<false>(&iterator.pointer[1], iterator.pointer, (this->endIterator.id - iterator.id) * sizeof(T));
+                    MemSet(iterator.pointer, 0, sizeof(T));
 
                     new(iterator.pointer) T();
 
@@ -394,10 +399,10 @@ namespace RTF {
                 if(this->pageSize < this->endIterator.id * sizeof(T)){
                     size_t newSize = ((this->endIterator.id * sizeof(T))/_size + 1) * _size;
                     char* tmp = (char*)malloc(newSize);
-                    memset(tmp, 0, newSize);
+                    MemSet(tmp, 0, newSize);
 
-                    memmove(tmp, this->memory, iterator.id * sizeof(T));
-                    memmove(tmp + (this->iterator.id + 1) * sizeof(T),
+                    MemCopy(tmp, this->memory, iterator.id * sizeof(T));
+                    MemCopy(tmp + (this->iterator.id + 1) * sizeof(T),
                             this->memory  + iterator.id,
                             (this->endIterator.id - iterator.id - 1) * sizeof(T));
 
@@ -410,7 +415,7 @@ namespace RTF {
 
                 }
                 else{
-                    memmove(this->beginIterator.pointer + (this->iterator.id + 1) * sizeof(T),
+                    MemCopy(this->beginIterator.pointer + (this->iterator.id + 1) * sizeof(T),
                             this->beginIterator.pointer + (this->iterator.id) * sizeof(T),
                             this->endIterator.id * sizeof(T));
 
@@ -426,7 +431,7 @@ namespace RTF {
                 return this->beginIterator;
             }
             Iterator& end(){
-                return this->beginIterator;
+                return this->endIterator;
             }
 
             const Iterator& cbegin() const{
@@ -452,5 +457,9 @@ namespace RTF {
             char* memory = nullptr;
         };
     }
+
+#ifdef TESTS_ON
+bool TEST(RTD, Memory, BasicAllocator)();
+#endif
 }
 #endif //CMAKE_INSTALL_CMAKE_ALLOCATOR_H

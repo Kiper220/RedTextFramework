@@ -48,6 +48,7 @@ namespace RTF{
                 _RTD_PATTERNS,
                 _RTD_STRINGS,
                 _RTD_TYPES,
+                _RTD_MEMORY
             } RTD_Modules;
             enum WIDGET_Modules_Type : char{
                 _WIDGET_NONE = 0,
