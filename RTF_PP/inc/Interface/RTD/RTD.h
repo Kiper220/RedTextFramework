@@ -7,6 +7,7 @@
 
 // Memory
 #include <RTD/Memory/IMemory.h>
+#include <RTD/Memory/IAllocator.h>
 #include <RTD/Memory/ISharedPointer.h>
 #include <RTD/Memory/IASharedPointer.h>
 

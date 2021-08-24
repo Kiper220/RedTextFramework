@@ -5,18 +5,19 @@ language: cpp
 
 os:
   - linux
+  - windows
 
 compiler:
-  - gcc
-  - clang
+    - gcc
+    - clang
 
-env:
-  - TARGET_CPU=amd64 BUILD_CONFIGURATION=Release
+  env:
+    - TARGET_CPU=amd64 BUILD_CONFIGURATION=Release
 
-script:
-  # скрипт сборки и тестирования проекта:
-  - mkdir build
-  - cd build
-  - cmake .. -DCMAKE_BUILD_TYPE=$BUILD_CONFIGURATION -DTARGET_CPU=$TARGET_CPU
-  - cmake --build .
-  - ../bin/RedTextApplication
+  script:
+    # скрипт сборки и тестирования проекта:
+    - mkdir build
+    - cd build
+    - cmake .. -DCMAKE_BUILD_TYPE=$BUILD_CONFIGURATION -DTARGET_CPU=$TARGET_CPU
+    - cmake --build .
+    - ../bin/RedTextApplication
