@@ -5,6 +5,15 @@
 * RedText Framework on [Notabug(origin)](https://notabug.org/WetGrape/RedText-Framework)
 * RedText Framework on [Github(Travis-CI, Github)](https://github.com/Kiper220/RedTextFramework)
 
+Development OS:
+- [X] Windows
+- [X] Linux X11
+
+Testing on compilers:
+- [X] MSVC 19
+- [X] GCC 7.5.0
+- [X] Clang 7.0.0
+
 On project work:
 * Kiper220(Leader)
     * [Github](https://github.com/Kiper220)
