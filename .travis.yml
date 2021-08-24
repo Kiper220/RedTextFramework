@@ -5,12 +5,10 @@ language: cpp
 
 os:
   - linux
-  - windows
 
 compiler:
     - gcc
     - clang
-
   env:
     - TARGET_CPU=amd64 BUILD_CONFIGURATION=Release
 
