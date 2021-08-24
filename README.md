@@ -6,13 +6,13 @@
 * RedText Framework on [Github(Travis-CI, Github)](https://github.com/Kiper220/RedTextFramework)
 
 Development OS:
-- [X] Windows
-- [X] Linux X11
+- [x] Windows
+- [x] Linux X11
 
 Testing on compilers:
-- [X] MSVC 19
-- [X] GCC 7.5.0
-- [X] Clang 7.0.0
+- [x] MSVC 19
+- [x] GCC 7.5.0
+- [x] Clang 7.0.0
 
 On project work:
 * Kiper220(Leader)
