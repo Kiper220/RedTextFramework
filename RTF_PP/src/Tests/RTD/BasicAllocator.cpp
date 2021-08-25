@@ -2,11 +2,16 @@
 // Created by kiper220 on 24.08.2021.
 //
 #include <Tests/RTF/Tests.h>
+#include <iostream>
 #include <RTD/Memory/Allocator.h>
 
 class T{
 public:
     T(){
+        i = 1953719668;
+        c++;
+    }
+    T(const T& t){
         i = 1953719668;
         c++;
     }
@@ -25,6 +30,8 @@ public:
 };
 class S{
 public:
+    S() = default;
+    S(const S& s): t(s.t){}
     T t;
 };
 
@@ -36,19 +43,25 @@ namespace RTF{
     bool TEST(RTD, Memory, BasicAllocator)(){     /// warning: see the memory leak
 
         try{
-            RTF::Memory::BasicAllocator<S> test;
-            for(size_t i = 0; i < 100; i++){
-                test.Allocate(1648);
-                test.Allocate(128);
-                test.Insert(test.begin(), S());
-                test.Allocate(98);
-                test.Insert(test.end(), S());
-                test.Allocate(1750);
-                test.Insert(test.begin() + 879, S());
-                test.Allocate(2648);
-                test.Insert(test.end() - 1458, S());
-                test.Allocate(512);
-                test.Allocate(28);
+            {
+                Memory::BasicAllocator<S> basicAllocator1;
+                {
+                    RTF::Memory::BasicAllocator<S> test;
+                    for(size_t i = 0; i < 100; i++){
+                        test.Allocate(1648);
+                        test.Allocate(128);
+                        test.Insert(test.begin(), S());
+                        test.Allocate(98);
+                        test.Insert(test.end(), S());
+                        test.Allocate(1750);
+                        test.Insert(test.begin() + 879, S());
+                        test.Allocate(2648);
+                        test.Insert(test.end() - 1458, S());
+                        test.Allocate(512);
+                        test.Allocate(28);
+                    }
+                    basicAllocator1 = test;
+                }
             }
         }
         catch(...){

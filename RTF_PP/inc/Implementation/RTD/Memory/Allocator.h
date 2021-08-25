@@ -12,7 +12,7 @@
 namespace RTF {
     namespace Memory {
 
-        template<typename T, int _size = 512>
+        template<typename T, size_t _size = 512>
         class BasicStackAllocator{
         public:
             using sizeType = size_t;
@@ -45,7 +45,7 @@ namespace RTF {
             size_t allocatedSize = 0;
             char memory[_size];
         };
-        template<typename T, int _size = 512>
+        template<typename T, size_t _size = 512>
         class BasicAllocator{
         public:
             using sizeType = size_t;
@@ -55,7 +55,7 @@ namespace RTF {
                 friend BasicAllocator;
 
                 Iterator operator++(int){
-                    Iterator iterator(this->pointer, this->basicAllocator);
+                    Iterator iterator(this->pointer, this->id, this->basicAllocator);
                     if(*this != basicAllocator.end())
                         pointer++, id++;
 
@@ -69,7 +69,7 @@ namespace RTF {
                 }
 
                 Iterator operator--(int){
-                    Iterator iterator(this->pointer, this->basicAllocator);
+                    Iterator iterator(this->pointer, this->id, this->basicAllocator);
                     if(*this != basicAllocator.begin())
                         pointer--, id--;
 
@@ -103,11 +103,8 @@ namespace RTF {
                     return tmp;
                 }
 
-                bool operator==(const Iterator iterator) const{
-                    return this->pointer == iterator.pointer;
-                }
                 bool operator==(const Iterator& iterator) const{
-                    return this->pointer == iterator.pointer;
+                    return this->id == iterator.id;
                 }
                 bool operator==(T* pointer) const{
                     return this->pointer == pointer;
@@ -119,11 +116,8 @@ namespace RTF {
                     return this->id == id;
                 }
 
-                bool operator!=(const Iterator iterator) const{
-                    return this->pointer != iterator.pointer;
-                }
                 bool operator!=(const Iterator& iterator) const{
-                    return this->pointer != iterator.pointer;
+                    return this->id != iterator.id;
                 }
                 bool operator!=(T* pointer) const{
                     return this->pointer != pointer;
@@ -135,9 +129,6 @@ namespace RTF {
                     return this->id != id;
                 }
 
-                bool operator<(const Iterator iterator) const{
-                    return this->id < iterator.id;
-                }
                 bool operator<(const Iterator& iterator) const{
                     return this->id < iterator.id;
                 }
@@ -145,9 +136,6 @@ namespace RTF {
                     return this->id < id;
                 }
 
-                bool operator<=(const Iterator iterator) const{
-                    return this->id <= iterator.id;
-                }
                 bool operator<=(const Iterator& iterator) const{
                     return this->id <= iterator.id;
                 }
@@ -155,9 +143,6 @@ namespace RTF {
                     return this->id <= id;
                 }
 
-                bool operator>(const Iterator iterator) const{
-                    return this->id < iterator.id;
-                }
                 bool operator>(const Iterator& iterator) const{
                     return this->id < iterator.id;
                 }
@@ -165,9 +150,6 @@ namespace RTF {
                     return this->id > id;
                 }
 
-                bool operator>=(const Iterator iterator) const{
-                    return this->id <= iterator.id;
-                }
                 bool operator>=(const Iterator& iterator) const{
                     return this->id <= iterator.id;
                 }
@@ -177,6 +159,12 @@ namespace RTF {
 
                 size_t GetId(){
                     return this->id;
+                }
+                Iterator& begin(){
+                    return *this;
+                }
+                Iterator end(){
+                    return this->basicAllocator.endIterator;
                 }
 
                 T& operator*(){
@@ -241,6 +229,66 @@ namespace RTF {
             };
 
             BasicAllocator() = default;
+            BasicAllocator(const BasicAllocator& basicAllocator) {
+                if(&basicAllocator == this)
+                    return;
+                if(basicAllocator.pageSize == 0)
+                    return;
+                this->pageSize = basicAllocator.pageSize;
+                this->memory = malloc(basicAllocator.pageSize);
+
+                if constexpr(!std::is_class_v<T>){
+                    Memory::MemCopy<true>(this->memory, basicAllocator.memory, this->endIterator.id * sizeof(T));
+                    return;
+                }
+                else {
+                    this->beginIterator.SetPointer((T*)this->memory, 0);
+                    this->endIterator = this->beginIterator + basicAllocator.endIterator.id;
+
+                    if constexpr(std::is_trivially_copy_constructible_v<T>)
+                        for(Iterator &s: *this)
+                            new(s.pointer) T(basicAllocator.beginIterator.pointer[s.id]);
+                    else if constexpr(std::is_trivially_constructible_v<T>)
+                        for(Iterator &s: *this)
+                            new(s.pointer) T;
+                    else
+                        Memory::MemCopy<true>(this->memory, basicAllocator.memory, this->endIterator.id * sizeof(T));
+                    return;
+                }
+            }
+            BasicAllocator& operator=(const BasicAllocator& basicAllocator) {
+                if(&basicAllocator == this)
+                    return *this;
+                if(this->memory != nullptr){
+                    free(this->memory);
+                    this->memory = nullptr;
+                    this->pageSize = 0;
+                }
+                if(basicAllocator.pageSize == 0)
+                    return *this;
+                this->pageSize = basicAllocator.pageSize;
+                this->memory = (char*)malloc(basicAllocator.pageSize);
+
+                if constexpr(!std::is_class_v<T>){
+                    Memory::MemCopy<true>(this->memory, basicAllocator.memory, this->endIterator.id * sizeof(T));
+                    this->endIterator = this->beginIterator + basicAllocator.endIterator.id;
+                    return *this;
+                }
+                else {
+                    this->beginIterator.SetPointer((T*)this->memory, 0);
+                    this->endIterator = this->beginIterator + basicAllocator.endIterator.id;
+
+                    if constexpr(!std::is_trivially_copy_constructible_v<T>)
+                        for(Iterator i = this->begin(); i != this->endIterator; i++)
+                            new(i.pointer) T(basicAllocator.beginIterator.pointer[i.id]);
+                    else if constexpr(!std::is_trivially_constructible_v<T>)
+                    for(Iterator &s: *this)
+                        new(s.pointer) T;
+                    else
+                        Memory::MemCopy<true>(this->memory, basicAllocator.memory, this->endIterator.id * sizeof(T));
+                    return *this;
+                }
+            }
 
             Iterator& Allocate(sizeType size){
                 if(this->endIterator < size){
@@ -449,7 +497,6 @@ namespace RTF {
             }
 
         private:
-            BasicAllocator(const BasicAllocator& basicAllocator) = delete;
 
             Iterator beginIterator = (*this);
             Iterator endIterator = (*this);

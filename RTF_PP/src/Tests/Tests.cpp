@@ -13,7 +13,7 @@ namespace RTF{
     namespace Tests{
         Containers::Pair<bool,Containers::Pair<char,char>> RunAllTest(){
 #ifdef TESTS_ON
-            for(int i = 0; i < 50; i++){
+            for(int i = 0; i < 100; i++){
                 if(!TEST(RTD,Types,ASharedPointer)())
                     return {false, {_RTD, UnderModule::_RTD_TYPES}};
 

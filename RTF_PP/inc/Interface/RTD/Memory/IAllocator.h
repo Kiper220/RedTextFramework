@@ -4,14 +4,15 @@
 
 #ifndef CMAKE_INSTALL_CMAKE_IALLOCATOR_H
 #define CMAKE_INSTALL_CMAKE_IALLOCATOR_H
+#include <cstdio>
 
 namespace RTF {
     namespace Memory {
 
-        template<typename T, int _size = 512>
+        template<typename T, size_t _size>
         class BasicStackAllocator;
 
-        template<typename T, int _size = 512>
+        template<typename T, size_t _size>
         class BasicAllocator;
     }
 }
