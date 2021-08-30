@@ -1,5 +1,5 @@
 # RedTextFramework
-[![Build Status](https://travis-ci.com/Kiper220/RedTextFramework.svg?branch=master)](https://travis-ci.com/Kiper220/RedTextFramework)
+[![Build Status](https://app.travis-ci.com/Kiper220/RedTextFramework.svg?branch=master)](https://app.travis-ci.com/Kiper220/RedTextFramework)
 
 
 * RedText Framework on [Notabug(origin)](https://notabug.org/WetGrape/RedText-Framework)
