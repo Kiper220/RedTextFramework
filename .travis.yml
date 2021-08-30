@@ -1,5 +1,4 @@
 dist:     Bionic
-sudo:     true
 
 language: cpp
 
