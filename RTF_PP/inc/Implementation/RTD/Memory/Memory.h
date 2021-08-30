@@ -66,7 +66,7 @@ namespace RTF{
             pointer->~T();
         }
         template<bool fromLeft>
-        inline void MemCopy(void* destination, void* source, size_t size){
+        inline void MemCopy(void* destination, const void* source, size_t size){
             if(size == 0) return;
             if constexpr(fromLeft){
                 size_t i = 0;
@@ -88,13 +88,13 @@ namespace RTF{
                         _destination[i+30] = _source[i+30]; _destination[i+31] = _source[i+31]; _destination[i+32] = _source[i+32];
                     }
 
-                    for(i;i * sizeof(size_t) < size; i++)
+                    for(i;(i + 1) * sizeof(size_t) < size; i++)
                         _destination[i] = _source[i];
                 }
                 i *= sizeof(size_t);
                 {
                     char* _destination = (char*)destination;
-                    char* _source = (char*)destination;
+                    char* _source = (char*)source;
                     for(i;i < size; i++)
                         _destination[i] = _source[i];
                 }
