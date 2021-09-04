@@ -8,6 +8,10 @@
 
 namespace RTF {
     namespace Strings {
+
+        unsigned char *StringToLowerExt(unsigned char *pString);
+        unsigned char *StringToUpperExt(unsigned char *pString);
+
         class SharedString{
         public:
             SharedString();

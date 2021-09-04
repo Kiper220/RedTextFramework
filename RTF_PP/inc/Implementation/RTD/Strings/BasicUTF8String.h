@@ -10,7 +10,10 @@
 
 namespace RTF {
     namespace Strings {
-        template <typename T, class _allocator = Memory::BasicAllocator<T>>
+        unsigned char *StringToLowerExt(unsigned char *pString);
+        unsigned char *StringToUpperExt(unsigned char *pString);
+
+        template <typename T = char, class _allocator = Memory::BasicAllocator<T>>
         class BasicUtf8String {
         public:
             BasicUtf8String() = default;
@@ -122,10 +125,24 @@ namespace RTF {
             }
 
             bool operator!=(const BasicUtf8String &string) {
-                return !(*this == string);
+                if(this->datas.end().GetId() != string.datas.cend().GetId())
+                    return true;
+                for(typename Memory::BasicAllocator<T>::Iterator begin = this->datas.begin(); begin != this->datas.end(); begin++){
+                    if(*begin != *(string.datas.cbegin() + begin))
+                        return true;
+                }
+                return false;
             }
             bool operator!=(const char *str) {
-                return !(*this == str);
+                size_t length = strlen(str) + 1;
+
+                if(this->datas.end().GetId() != length)
+                    return true;
+                for(typename Memory::BasicAllocator<T>::Iterator begin = this->datas.begin(); begin != this->datas.end(); begin++){
+                    if(*begin != str[begin.GetId()])
+                        return true;
+                }
+                return false;
             }
 
             T &operator[](size_t i) {
@@ -137,11 +154,11 @@ namespace RTF {
             }
 
             BasicUtf8String &ToUpper(){
-
+                StringToUpperExt((unsigned char *)this->datas.begin().GetPointer());
                 return *this;
             }
             BasicUtf8String &ToLower(){
-
+                StringToLowerExt((unsigned char *)this->datas.begin().GetPointer());
                 return *this;
             }
 

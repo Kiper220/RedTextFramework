@@ -12,10 +12,6 @@ void test();
 namespace RTF {
     namespace Strings {
 
-        static unsigned char *StringToLowerExt(unsigned char *pString);
-
-        static unsigned char *StringToUpperExt(unsigned char *pString);
-
         SharedString::SharedString() = default;
 
         SharedString::SharedString(const SharedString &string): string(string.string) {}
@@ -160,7 +156,7 @@ namespace RTF {
 
         SharedString::~SharedString() = default;
 
-        static unsigned char *StringToLowerExt(unsigned char *pString) { // TODO: Refactor StringToLowerExt function;
+        unsigned char *StringToLowerExt(unsigned char *pString) { // TODO: Refactor StringToLowerExt function;
             if (pString && *pString) {
                 unsigned char *p = pString;
                 unsigned char *pExtChar = 0;
@@ -559,7 +555,7 @@ namespace RTF {
             return pString;
         }
 
-        static unsigned char *StringToUpperExt(unsigned char *pString) { // TODO: Refactor StringToUpperExt function;
+        unsigned char *StringToUpperExt(unsigned char *pString) { // TODO: Refactor StringToUpperExt function;
             if (pString && *pString) {
                 unsigned char *p = pString;
                 unsigned char *pExtChar = 0;

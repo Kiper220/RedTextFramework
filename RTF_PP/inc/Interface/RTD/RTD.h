@@ -18,6 +18,7 @@
 
 // Strings
 #include <RTD/Strings/ISharedString.h>
+#include <RTD/Strings/IBasicUTF8String.h>
 
 // Math
 #include <RTD/Math/IVector.h>

@@ -15,20 +15,20 @@ namespace RTF{
         Containers::Pair<bool,Containers::Pair<char,char>> RunAllTest(){
 #ifdef TESTS_ON
             for(int i = 0; i < 100; i++){
-                if(!TEST(RTD,Strings,BasicUtf8String)())
-                    return {false, {_RTD, UnderModule::_RTD_STRINGS}};
-
                 if(!TEST(RTD,Types,ASharedPointer)())
                     return {false, {_RTD, UnderModule::_RTD_TYPES}};
 
                 if(!TEST(RTD,Types,SharedPointer)())
                     return {false, {_RTD, UnderModule::_RTD_TYPES}};
 
-                if(!TEST(RTD,Strings,SharedString)())
-                    return {false, {_RTD, UnderModule::_RTD_STRINGS}};
-
                 if(!TEST(RTD,Memory,BasicAllocator)())
                     return {false, {_RTD, UnderModule::_RTD_MEMORY}};
+
+                if(!TEST(RTD,Strings,BasicUtf8String)())
+                    return {false, {_RTD, UnderModule::_RTD_STRINGS}};
+
+                if(!TEST(RTD,Strings,SharedString)())
+                    return {false, {_RTD, UnderModule::_RTD_STRINGS}};
             }
 #endif
 return {true, {_NONE, UnderModule::_RTD_NONE}};
