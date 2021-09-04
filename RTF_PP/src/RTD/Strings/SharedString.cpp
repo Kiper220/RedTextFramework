@@ -107,8 +107,10 @@ namespace RTF {
             if(this->Size() != string.Size())
                 return false;
             for(size_t i = 0; i < this->string.Size(); i++)
-                if((*this->string)[i] != (*((Containers::SharedVector<char>&)string.string))[i])
+                if((*this->string)[i] != (*((Containers::SharedVector<char>&)string.string))[i]){
+                    printf("%d != %d", (*this->string)[i], (*((Containers::SharedVector<char>&)string.string))[i]);
                     return false;
+                }
 
             return true;
         }

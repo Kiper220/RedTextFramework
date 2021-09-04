@@ -9,29 +9,29 @@
 namespace RTF{
     bool TEST(RTD, Strings, SharedString)(){
         try{
-            Strings::SharedString string1 = "HelO, WoRld! ПриВЕт, мИр!", string2 = "hELo, wOrLD! пРИвеТ, МиР!", string3 = "Hello, World! Привет, Мир!";
-            Strings::SharedString string4, string5, string6;
+            Strings::SharedString string1 = "Test", string2 = "1", string3 = "\n", string4;
 
-            string4 = string1, string4.ToUpper();
-            string6 = string2, string6.ToUpper();
+            for(auto s = 0; s < 1; s++){
+                string4 = string1 + string2 + string3;
+            }
+            string1 = string4;
 
-            if(string4 != string6)
-                return false;
-            string5 = string6;
-
-            if(string5 != string4)
+            if(string1 != string4 || string1 != "Test1\n")
                 return false;
 
-            string5[5] = 't';
+            string1.ToUpper();
+            string4.ToUpper();
 
-            if(string4 != string6)
+            if(string1 != string4 || string1 != "TEST1\n")
                 return false;
 
-            string4 += string5;
-            string6 += string5;
+            string1.ToLower();
+            string4.ToLower();
 
-            if(string4 != string6)
+            if(string1 != string4 || string1 != "test1\n")
                 return false;
+
+            return true;
         }
         catch(...){
             return false;
